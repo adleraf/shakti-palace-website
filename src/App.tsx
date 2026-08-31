@@ -23,9 +23,11 @@ function App() {
       <header className="absolute left-0 top-0 z-50 w-full">
         <nav className="mx-auto flex max-w-[1400px] items-center justify-between px-6 py-5 lg:px-10">
 
+          {/* ================= LOGO ================= */}
+
           <a
             href="#"
-            className="rounded-xl bg-white/90 px-3 py-2 backdrop-blur-md transition-transform duration-300 hover:scale-[1.02]"
+            className="rounded-xl bg-white/90 px-3 py-2 shadow-lg backdrop-blur-md transition-transform duration-300 hover:scale-[1.02]"
           >
             <img
               src={logo}
@@ -34,53 +36,72 @@ function App() {
             />
           </a>
 
-          {/* DESKTOP NAV */}
 
-          <div className="hidden items-center gap-8 lg:flex">
+          {/* ================= DESKTOP NAV ================= */}
+
+          <div className="hidden items-center gap-1 rounded-full border border-white/25 bg-[#11140f]/90 px-3 py-2 shadow-[0_8px_30px_rgba(0,0,0,0.4)] backdrop-blur-xl lg:flex">
+
+            {/* ROOMS */}
 
             <a
               href="#rooms"
-              className="text-sm font-medium text-white transition-opacity hover:opacity-70"
+              className="rounded-full px-4 py-2 text-sm font-semibold text-white drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)] transition-all duration-300 hover:bg-white/15 hover:text-[#e3c88e]"
             >
               Rooms
             </a>
 
+
+            {/* DINING */}
+
             <a
               href="#dining"
-              className="text-sm font-medium text-white transition-opacity hover:opacity-70"
+              className="rounded-full px-4 py-2 text-sm font-semibold text-white drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)] transition-all duration-300 hover:bg-white/15 hover:text-[#e3c88e]"
             >
               Dining
             </a>
 
+
+            {/* GALLERY */}
+
             <a
               href="#gallery"
-              className="text-sm font-medium text-white transition-opacity hover:opacity-70"
+              className="rounded-full px-4 py-2 text-sm font-semibold text-white drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)] transition-all duration-300 hover:bg-white/15 hover:text-[#e3c88e]"
             >
               Gallery
             </a>
 
+
+            {/* ABOUT */}
+
             <a
               href="#about"
-              className="text-sm font-medium text-white transition-opacity hover:opacity-70"
+              className="rounded-full px-4 py-2 text-sm font-semibold text-white drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)] transition-all duration-300 hover:bg-white/15 hover:text-[#e3c88e]"
             >
               About
             </a>
 
+
+            {/* LOCATION */}
+
             <a
               href="#location"
-              className="text-sm font-medium text-white transition-opacity hover:opacity-70"
+              className="rounded-full px-4 py-2 text-sm font-semibold text-white drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)] transition-all duration-300 hover:bg-white/15 hover:text-[#e3c88e]"
             >
               Location
             </a>
 
-            <button className="flex items-center gap-2 rounded-full bg-[#b28b4d] px-6 py-3 text-sm font-semibold text-white transition-all duration-300 hover:bg-[#9e793f] hover:shadow-lg">
+
+            {/* BOOK NOW */}
+
+            <button className="ml-1 flex items-center gap-2 rounded-full bg-[#b28b4d] px-6 py-3 text-sm font-semibold text-white shadow-md transition-all duration-300 hover:bg-[#9e793f] hover:shadow-lg">
               Book now
               <ArrowUpRight size={16} />
             </button>
 
           </div>
 
-          {/* MOBILE MENU BUTTON */}
+
+          {/* ================= MOBILE MENU BUTTON ================= */}
 
           <button
             onClick={() => setMenuOpen(!menuOpen)}
@@ -92,7 +113,8 @@ function App() {
 
         </nav>
 
-        {/* MOBILE MENU */}
+
+        {/* ================= MOBILE MENU ================= */}
 
         {menuOpen && (
           <div className="mx-4 rounded-2xl bg-[#20221f]/95 p-7 text-white shadow-2xl backdrop-blur-xl lg:hidden">
@@ -162,13 +184,16 @@ function App() {
           className="absolute inset-0 h-full w-full object-cover object-center"
         />
 
+
         {/* DARK OVERLAY */}
 
         <div className="absolute inset-0 bg-gradient-to-r from-black/65 via-black/30 to-black/10" />
 
+
         {/* BOTTOM FADE */}
 
         <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-black/40 to-transparent" />
+
 
         {/* HERO CONTENT */}
 
@@ -186,6 +211,7 @@ function App() {
 
             </div>
 
+
             <h1 className="max-w-3xl font-serif text-6xl font-medium leading-[0.9] tracking-[-0.025em] text-white sm:text-7xl md:text-8xl lg:text-[112px]">
 
               A place to stay,
@@ -198,12 +224,16 @@ function App() {
 
             </h1>
 
+
             <p className="mt-8 max-w-xl text-base leading-7 text-white/80 sm:text-lg">
               Comfortable stays, welcoming hospitality and
               memorable dining in the heart of Ponda, Goa.
             </p>
 
+
             <div className="mt-9 flex flex-wrap gap-4">
+
+              {/* EXPLORE ROOMS */}
 
               <a
                 href="#rooms"
@@ -217,6 +247,9 @@ function App() {
                 />
               </a>
 
+
+              {/* DISCOVER */}
+
               <a
                 href="#about"
                 className="flex items-center gap-3 rounded-full border border-white/40 bg-white/5 px-7 py-4 text-sm font-medium text-white backdrop-blur-sm transition-all duration-300 hover:bg-white hover:text-[#20221f]"
@@ -229,6 +262,7 @@ function App() {
           </div>
 
         </div>
+
 
         {/* SCROLL */}
 
@@ -272,6 +306,8 @@ function App() {
           </div>
 
 
+          {/* CHECK IN */}
+
           <button className="flex flex-col items-start justify-center border-b border-black/10 p-6 text-left transition-colors hover:bg-[#faf8f3] md:border-b-0 md:border-r">
 
             <span className="text-xs uppercase tracking-widest text-black/40">
@@ -285,6 +321,8 @@ function App() {
           </button>
 
 
+          {/* CHECK OUT */}
+
           <button className="flex flex-col items-start justify-center border-b border-black/10 p-6 text-left transition-colors hover:bg-[#faf8f3] md:border-b-0 md:border-r">
 
             <span className="text-xs uppercase tracking-widest text-black/40">
@@ -297,6 +335,8 @@ function App() {
 
           </button>
 
+
+          {/* SEARCH */}
 
           <button className="flex items-center justify-center gap-3 bg-[#20221f] p-6 font-semibold text-white transition-colors hover:bg-[#353832]">
 
@@ -319,7 +359,6 @@ function App() {
       >
 
         <div className="grid gap-14 lg:grid-cols-[0.75fr_1.25fr] lg:items-center">
-
 
           {/* LOCATION INFORMATION */}
 
@@ -390,7 +429,7 @@ function App() {
             </div>
 
 
-            {/* ACTIONS */}
+            {/* ================= ACTIONS ================= */}
 
             <div className="mt-6 flex flex-wrap gap-3">
 
@@ -400,7 +439,7 @@ function App() {
                 href="https://www.google.com/maps/dir/?api=1&destination=Hotel+Shakti+Palace,+Super+Market+Complex,+Ponda,+Goa+403401"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group inline-flex items-center gap-3 rounded-full bg-[#20221f] px-7 py-4 text-sm font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#b28b4d] hover:shadow-xl"
+                className="group inline-flex items-center gap-3 rounded-full bg-[#b28b4d] px-7 py-4 text-sm font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#9e793f] hover:shadow-xl"
               >
 
                 Get directions
@@ -416,20 +455,22 @@ function App() {
               {/* PHONE */}
 
               <a
-  href="tel:+917875968565"
-  className="inline-flex items-center gap-3 rounded-full border border-black/15 bg-white px-6 py-4 text-sm font-semibold text-[#20221f] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#b28b4d] hover:shadow-lg"
->
-  <Phone size={16} />
+                href="tel:+917875968565"
+                className="inline-flex items-center gap-3 rounded-full border border-black/15 bg-white px-6 py-4 text-sm font-semibold text-[#20221f] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#b28b4d] hover:shadow-lg"
+              >
 
-  +91 78759 68565
-</a>
+                <Phone size={16} />
+
+                +91 78759 68565
+
+              </a>
 
             </div>
 
           </div>
 
 
-          {/* MAP */}
+          {/* ================= MAP ================= */}
 
           <div className="relative h-[420px] overflow-hidden rounded-[28px] bg-[#e9e4d9] shadow-[0_20px_60px_rgba(0,0,0,0.12)]">
 
@@ -440,6 +481,7 @@ function App() {
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
             />
+
 
             {/* MAP LABEL */}
 
@@ -468,6 +510,7 @@ function App() {
         <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#a27b3e]">
           Welcome to Shakti Palace
         </p>
+
 
         <div className="mt-7 grid gap-10 lg:grid-cols-2 lg:gap-20">
 
@@ -499,19 +542,22 @@ function App() {
       </section>
 
 
-      {/* TEMPORARY SECTIONS */}
+      {/* ================= TEMPORARY SECTIONS ================= */}
 
       <section
         id="rooms"
         className="flex h-32 items-center justify-center bg-[#20221f] text-white"
       >
+
         <p className="font-serif text-3xl italic">
           Rooms coming next
         </p>
+
       </section>
 
 
       <section id="dining" className="h-1" />
+
       <section id="gallery" className="h-1" />
 
     </main>
