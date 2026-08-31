@@ -14,6 +14,10 @@ import heroImage from "./assets/shakti-palace-hero.webp";
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [checkIn, setCheckIn] = useState("");
+  const [checkOut, setCheckOut] = useState("");
+
+  const today = new Date().toISOString().split("T")[0];
 
   return (
     <main className="min-h-screen bg-[#f7f3ea] text-[#20221f]">
@@ -35,7 +39,6 @@ function App() {
               className="h-12 w-auto object-contain sm:h-14"
             />
           </a>
-
 
           {/* DESKTOP NAV */}
 
@@ -76,15 +79,17 @@ function App() {
               Location
             </a>
 
-            <button className="ml-1 flex items-center gap-2 rounded-full bg-[#b28b4d] px-6 py-3 text-sm font-semibold text-white shadow-md transition-all duration-300 hover:bg-[#9e793f] hover:shadow-lg">
+            <a
+              href="#booking"
+              className="ml-1 flex items-center gap-2 rounded-full bg-[#b28b4d] px-6 py-3 text-sm font-semibold text-white shadow-md transition-all duration-300 hover:bg-[#9e793f] hover:shadow-lg"
+            >
               Book now
               <ArrowUpRight size={16} />
-            </button>
+            </a>
 
           </div>
 
-
-          {/* MOBILE MENU */}
+          {/* MOBILE MENU BUTTON */}
 
           <button
             onClick={() => setMenuOpen(!menuOpen)}
@@ -95,7 +100,6 @@ function App() {
           </button>
 
         </nav>
-
 
         {/* MOBILE MENU */}
 
@@ -144,10 +148,14 @@ function App() {
                 Location
               </a>
 
-              <button className="mt-2 flex items-center justify-center gap-2 rounded-full bg-[#b28b4d] px-6 py-4 font-semibold">
+              <a
+                href="#booking"
+                onClick={() => setMenuOpen(false)}
+                className="mt-2 flex items-center justify-center gap-2 rounded-full bg-[#b28b4d] px-6 py-4 font-semibold"
+              >
                 Book your stay
                 <ArrowUpRight size={17} />
-              </button>
+              </a>
 
             </div>
 
@@ -159,14 +167,7 @@ function App() {
 
       {/* ================= HERO ================= */}
 
-      {/*
-        Original image is approximately 1899 × 882.
-        We preserve that wide ratio instead of forcing it into h-screen.
-      */}
-
       <section className="relative aspect-[1899/882] w-full overflow-hidden bg-[#171914]">
-
-        {/* ORIGINAL IMAGE — NO CROPPING */}
 
         <img
           src={heroImage}
@@ -174,16 +175,11 @@ function App() {
           className="absolute inset-0 h-full w-full object-fill"
         />
 
-
-        {/* SUBTLE DARK GRADIENT FOR TEXT READABILITY */}
+        {/* DARK GRADIENT FOR READABILITY */}
 
         <div className="absolute inset-0 bg-gradient-to-r from-black/65 via-black/25 to-transparent" />
 
-
-        {/* SUBTLE BOTTOM GRADIENT */}
-
         <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/55 to-transparent" />
-
 
         {/* HERO CONTENT */}
 
@@ -192,8 +188,6 @@ function App() {
           <div className="mx-auto flex h-full max-w-[1400px] items-center px-6 pt-24 lg:px-10 lg:pt-20">
 
             <div className="max-w-2xl">
-
-              {/* LOCATION */}
 
               <div className="mb-5 flex items-center gap-4 sm:mb-7">
 
@@ -204,9 +198,6 @@ function App() {
                 </p>
 
               </div>
-
-
-              {/* TITLE */}
 
               <h1 className="font-serif text-[clamp(42px,6.5vw,100px)] font-medium leading-[0.9] tracking-[-0.025em] text-white drop-shadow-[0_3px_12px_rgba(0,0,0,0.45)]">
 
@@ -220,16 +211,10 @@ function App() {
 
               </h1>
 
-
-              {/* DESCRIPTION */}
-
               <p className="mt-5 max-w-lg text-sm leading-6 text-white/85 drop-shadow-[0_2px_5px_rgba(0,0,0,0.8)] sm:mt-7 sm:text-base sm:leading-7 lg:text-lg">
                 Comfortable stays, welcoming hospitality and
                 memorable dining in the heart of Ponda, Goa.
               </p>
-
-
-              {/* BUTTONS */}
 
               <div className="mt-6 flex flex-wrap gap-3 sm:mt-8 sm:gap-4">
 
@@ -244,7 +229,6 @@ function App() {
                     className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
                   />
                 </a>
-
 
                 <a
                   href="#about"
@@ -261,7 +245,6 @@ function App() {
 
         </div>
 
-
         {/* SCROLL INDICATOR */}
 
         <div className="absolute bottom-6 left-6 z-20 hidden items-center gap-3 text-[11px] font-medium uppercase tracking-[0.25em] text-white/75 drop-shadow-md lg:left-10 lg:flex">
@@ -277,9 +260,12 @@ function App() {
       </section>
 
 
-      {/* ================= AVAILABILITY ================= */}
+      {/* ================= BOOKING / DATE SELECTION ================= */}
 
-      <section className="relative z-30 mx-auto -mt-10 max-w-[1280px] px-5 sm:-mt-14">
+      <section
+        id="booking"
+        className="relative z-30 mx-auto -mt-10 max-w-[1280px] scroll-mt-24 px-5 sm:-mt-14"
+      >
 
         <div className="grid overflow-hidden rounded-2xl bg-white shadow-[0_20px_60px_rgba(0,0,0,0.16)] md:grid-cols-4">
 
@@ -308,41 +294,92 @@ function App() {
 
           {/* CHECK IN */}
 
-          <button className="flex flex-col items-start justify-center border-b border-black/10 p-6 text-left transition-colors hover:bg-[#faf8f3] md:border-b-0 md:border-r">
+          <label className="flex cursor-pointer flex-col justify-center border-b border-black/10 p-6 transition-colors hover:bg-[#faf8f3] md:border-b-0 md:border-r">
 
             <span className="text-xs uppercase tracking-widest text-black/40">
               Check in
             </span>
 
-            <span className="mt-2 font-serif text-xl">
-              Select date
-            </span>
+            <input
+              type="date"
+              value={checkIn}
+              min={today}
+              onChange={(e) => {
 
-          </button>
+                const selectedDate = e.target.value;
+
+                setCheckIn(selectedDate);
+
+                if (
+                  checkOut &&
+                  selectedDate &&
+                  checkOut < selectedDate
+                ) {
+                  setCheckOut("");
+                }
+
+              }}
+              className="mt-2 w-full cursor-pointer border-0 bg-transparent p-0 font-serif text-xl text-[#20221f] outline-none focus:ring-0"
+            />
+
+          </label>
 
 
           {/* CHECK OUT */}
 
-          <button className="flex flex-col items-start justify-center border-b border-black/10 p-6 text-left transition-colors hover:bg-[#faf8f3] md:border-b-0 md:border-r">
+          <label
+            className={`flex flex-col justify-center border-b border-black/10 p-6 transition-colors md:border-b-0 md:border-r ${
+              checkIn
+                ? "cursor-pointer hover:bg-[#faf8f3]"
+                : "cursor-not-allowed opacity-50"
+            }`}
+          >
 
             <span className="text-xs uppercase tracking-widest text-black/40">
               Check out
             </span>
 
-            <span className="mt-2 font-serif text-xl">
-              Select date
-            </span>
+            <input
+              type="date"
+              value={checkOut}
+              min={checkIn || today}
+              disabled={!checkIn}
+              onChange={(e) => setCheckOut(e.target.value)}
+              className="mt-2 w-full cursor-pointer border-0 bg-transparent p-0 font-serif text-xl text-[#20221f] outline-none focus:ring-0 disabled:cursor-not-allowed"
+            />
 
-          </button>
+          </label>
 
 
-          {/* SEARCH */}
+          {/* SEARCH ROOMS */}
 
-          <button className="flex items-center justify-center gap-3 bg-[#20221f] p-6 font-semibold text-white transition-all duration-300 hover:bg-[#b28b4d]">
+          <button
+            onClick={() => {
+
+              if (!checkIn) {
+                alert("Please select your check-in date.");
+                return;
+              }
+
+              if (!checkOut) {
+                alert("Please select your check-out date.");
+                return;
+              }
+
+              alert(
+                `Searching rooms from ${checkIn} to ${checkOut}`
+              );
+
+            }}
+            className="group flex items-center justify-center gap-3 bg-[#20221f] p-6 font-semibold text-white transition-all duration-300 hover:bg-[#b28b4d]"
+          >
 
             Search rooms
 
-            <ArrowUpRight size={18} />
+            <ArrowUpRight
+              size={18}
+              className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
+            />
 
           </button>
 
@@ -355,12 +392,10 @@ function App() {
 
       <section
         id="location"
-        className="mx-auto max-w-[1280px] px-6 py-28 lg:px-10 lg:py-36"
+        className="mx-auto max-w-[1280px] scroll-mt-24 px-6 py-28 lg:px-10 lg:py-36"
       >
 
         <div className="grid gap-14 lg:grid-cols-[0.75fr_1.25fr] lg:items-center">
-
-          {/* LOCATION INFO */}
 
           <div>
 
@@ -377,7 +412,6 @@ function App() {
 
             </div>
 
-
             <h2 className="mt-6 font-serif text-5xl font-medium leading-[0.95] sm:text-6xl lg:text-7xl">
 
               Right in the
@@ -390,7 +424,6 @@ function App() {
 
             </h2>
 
-
             <p className="mt-7 max-w-md text-base leading-8 text-black/60 sm:text-lg">
               Visit Shakti Palace in the heart of Ponda,
               Goa — convenient for guests exploring the
@@ -398,7 +431,7 @@ function App() {
             </p>
 
 
-            {/* ADDRESS */}
+            {/* ADDRESS CARD */}
 
             <div className="mt-8 rounded-2xl border border-black/10 bg-white p-6 shadow-sm">
 
@@ -433,8 +466,6 @@ function App() {
 
             <div className="mt-6 flex flex-wrap gap-3">
 
-              {/* GOLD DIRECTIONS BUTTON */}
-
               <a
                 href="https://www.google.com/maps/dir/?api=1&destination=Hotel+Shakti+Palace,+Super+Market+Complex,+Ponda,+Goa+403401"
                 target="_blank"
@@ -451,8 +482,6 @@ function App() {
 
               </a>
 
-
-              {/* PHONE */}
 
               <a
                 href="tel:+917875968565"
@@ -501,7 +530,7 @@ function App() {
 
       <section
         id="about"
-        className="mx-auto max-w-[1280px] px-6 py-32 lg:px-10 lg:py-44"
+        className="mx-auto max-w-[1280px] scroll-mt-24 px-6 py-32 lg:px-10 lg:py-44"
       >
 
         <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#a27b3e]">
@@ -522,7 +551,6 @@ function App() {
 
           </h2>
 
-
           <div className="flex items-end">
 
             <p className="max-w-xl text-base leading-8 text-black/60 sm:text-lg">
@@ -538,23 +566,70 @@ function App() {
       </section>
 
 
-      {/* ================= TEMPORARY ROOMS ================= */}
+      {/* ================= ROOMS ================= */}
 
       <section
         id="rooms"
-        className="flex h-32 items-center justify-center bg-[#20221f] text-white"
+        className="flex min-h-[300px] scroll-mt-24 items-center justify-center bg-[#20221f] px-6 text-white"
       >
 
-        <p className="font-serif text-3xl italic">
-          Rooms coming next
-        </p>
+        <div className="text-center">
+
+          <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#e3c88e]">
+            Stay with us
+          </p>
+
+          <p className="mt-4 font-serif text-4xl italic sm:text-5xl">
+            Rooms coming next
+          </p>
+
+        </div>
 
       </section>
 
 
-      <section id="dining" className="h-1" />
+      {/* ================= DINING ================= */}
 
-      <section id="gallery" className="h-1" />
+      <section
+        id="dining"
+        className="flex min-h-[300px] scroll-mt-24 items-center justify-center bg-[#f7f3ea] px-6"
+      >
+
+        <div className="text-center">
+
+          <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#a27b3e]">
+            Shakti Palace
+          </p>
+
+          <p className="mt-4 font-serif text-4xl italic sm:text-5xl">
+            Dining coming next
+          </p>
+
+        </div>
+
+      </section>
+
+
+      {/* ================= GALLERY ================= */}
+
+      <section
+        id="gallery"
+        className="flex min-h-[300px] scroll-mt-24 items-center justify-center bg-[#20221f] px-6 text-white"
+      >
+
+        <div className="text-center">
+
+          <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#e3c88e]">
+            Explore
+          </p>
+
+          <p className="mt-4 font-serif text-4xl italic sm:text-5xl">
+            Gallery coming next
+          </p>
+
+        </div>
+
+      </section>
 
     </main>
   );
