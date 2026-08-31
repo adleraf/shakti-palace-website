@@ -27,7 +27,7 @@ function App() {
 
           <a
             href="#"
-            className="rounded-xl bg-white/90 px-3 py-2 shadow-lg backdrop-blur-md transition-transform duration-300 hover:scale-[1.02]"
+            className="rounded-xl bg-white/95 px-3 py-2 shadow-lg backdrop-blur-md transition-transform duration-300 hover:scale-[1.02]"
           >
             <img
               src={logo}
@@ -35,6 +35,7 @@ function App() {
               className="h-12 w-auto object-contain sm:h-14"
             />
           </a>
+
 
           {/* DESKTOP NAV */}
 
@@ -82,7 +83,8 @@ function App() {
 
           </div>
 
-          {/* MOBILE MENU BUTTON */}
+
+          {/* MOBILE MENU */}
 
           <button
             onClick={() => setMenuOpen(!menuOpen)}
@@ -93,6 +95,7 @@ function App() {
           </button>
 
         </nav>
+
 
         {/* MOBILE MENU */}
 
@@ -156,69 +159,101 @@ function App() {
 
       {/* ================= HERO ================= */}
 
-      <section className="relative min-h-[760px] h-screen overflow-hidden">
+      {/*
+        Original image is approximately 1899 × 882.
+        We preserve that wide ratio instead of forcing it into h-screen.
+      */}
+
+      <section className="relative aspect-[1899/882] w-full overflow-hidden bg-[#171914]">
+
+        {/* ORIGINAL IMAGE — NO CROPPING */}
 
         <img
           src={heroImage}
           alt="Shakti Palace, Ponda Goa"
-          className="absolute inset-0 h-full w-full object-cover object-center"
+          className="absolute inset-0 h-full w-full object-fill"
         />
 
-        <div className="absolute inset-0 bg-gradient-to-r from-black/65 via-black/30 to-black/10" />
 
-        <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-black/40 to-transparent" />
+        {/* SUBTLE DARK GRADIENT FOR TEXT READABILITY */}
 
-        <div className="relative z-10 mx-auto flex h-full max-w-[1400px] items-end px-6 pb-36 lg:px-10 lg:pb-40">
+        <div className="absolute inset-0 bg-gradient-to-r from-black/65 via-black/25 to-transparent" />
 
-          <div className="max-w-3xl">
 
-            <div className="mb-7 flex items-center gap-4">
+        {/* SUBTLE BOTTOM GRADIENT */}
 
-              <span className="h-px w-10 bg-[#d9bd87]" />
+        <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/55 to-transparent" />
 
-              <p className="text-xs font-semibold uppercase tracking-[0.35em] text-[#e4cfaa]">
-                Ponda · Goa
+
+        {/* HERO CONTENT */}
+
+        <div className="absolute inset-0 z-10">
+
+          <div className="mx-auto flex h-full max-w-[1400px] items-center px-6 pt-24 lg:px-10 lg:pt-20">
+
+            <div className="max-w-2xl">
+
+              {/* LOCATION */}
+
+              <div className="mb-5 flex items-center gap-4 sm:mb-7">
+
+                <span className="h-px w-8 bg-[#d9bd87] sm:w-10" />
+
+                <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[#e4cfaa] sm:text-xs sm:tracking-[0.35em]">
+                  Ponda · Goa
+                </p>
+
+              </div>
+
+
+              {/* TITLE */}
+
+              <h1 className="font-serif text-[clamp(42px,6.5vw,100px)] font-medium leading-[0.9] tracking-[-0.025em] text-white drop-shadow-[0_3px_12px_rgba(0,0,0,0.45)]">
+
+                A place to stay,
+
+                <br />
+
+                <span className="italic text-[#e3c88e]">
+                  dine & unwind.
+                </span>
+
+              </h1>
+
+
+              {/* DESCRIPTION */}
+
+              <p className="mt-5 max-w-lg text-sm leading-6 text-white/85 drop-shadow-[0_2px_5px_rgba(0,0,0,0.8)] sm:mt-7 sm:text-base sm:leading-7 lg:text-lg">
+                Comfortable stays, welcoming hospitality and
+                memorable dining in the heart of Ponda, Goa.
               </p>
 
-            </div>
 
-            <h1 className="max-w-3xl font-serif text-6xl font-medium leading-[0.9] tracking-[-0.025em] text-white sm:text-7xl md:text-8xl lg:text-[112px]">
+              {/* BUTTONS */}
 
-              A place to stay,
+              <div className="mt-6 flex flex-wrap gap-3 sm:mt-8 sm:gap-4">
 
-              <br />
+                <a
+                  href="#rooms"
+                  className="group flex items-center gap-3 rounded-full bg-[#b28b4d] px-6 py-3.5 text-sm font-semibold text-white shadow-xl transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#9e793f] hover:shadow-2xl sm:px-7 sm:py-4"
+                >
+                  Explore rooms
 
-              <span className="italic text-[#e3c88e]">
-                dine & unwind.
-              </span>
+                  <ArrowUpRight
+                    size={17}
+                    className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
+                  />
+                </a>
 
-            </h1>
 
-            <p className="mt-8 max-w-xl text-base leading-7 text-white/80 sm:text-lg">
-              Comfortable stays, welcoming hospitality and
-              memorable dining in the heart of Ponda, Goa.
-            </p>
+                <a
+                  href="#about"
+                  className="flex items-center gap-3 rounded-full border border-white/50 bg-black/20 px-6 py-3.5 text-sm font-medium text-white shadow-lg backdrop-blur-sm transition-all duration-300 hover:bg-white hover:text-[#20221f] sm:px-7 sm:py-4"
+                >
+                  Discover Shakti Palace
+                </a>
 
-            <div className="mt-9 flex flex-wrap gap-4">
-
-              <a
-                href="#rooms"
-                className="group flex items-center gap-3 rounded-full bg-[#b28b4d] px-7 py-4 text-sm font-semibold text-white transition-all duration-300 hover:bg-[#9e793f] hover:shadow-xl"
-              >
-                Explore rooms
-
-                <ArrowUpRight
-                  size={17}
-                  className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
-                />
-              </a>
-
-              <a
-                href="#about"
-                className="flex items-center gap-3 rounded-full border border-white/40 bg-white/5 px-7 py-4 text-sm font-medium text-white backdrop-blur-sm transition-all duration-300 hover:bg-white hover:text-[#20221f]"
-              >
-                Discover Shakti Palace
-              </a>
+              </div>
 
             </div>
 
@@ -226,9 +261,12 @@ function App() {
 
         </div>
 
-        <div className="absolute bottom-8 left-6 z-20 flex items-center gap-3 text-[11px] font-medium uppercase tracking-[0.25em] text-white/70 lg:left-10">
 
-          <div className="flex h-9 w-9 items-center justify-center rounded-full border border-white/30">
+        {/* SCROLL INDICATOR */}
+
+        <div className="absolute bottom-6 left-6 z-20 hidden items-center gap-3 text-[11px] font-medium uppercase tracking-[0.25em] text-white/75 drop-shadow-md lg:left-10 lg:flex">
+
+          <div className="flex h-9 w-9 items-center justify-center rounded-full border border-white/40 bg-black/10 backdrop-blur-sm">
             <ChevronDown size={15} />
           </div>
 
@@ -241,9 +279,11 @@ function App() {
 
       {/* ================= AVAILABILITY ================= */}
 
-      <section className="relative z-30 mx-auto -mt-16 max-w-[1280px] px-5">
+      <section className="relative z-30 mx-auto -mt-10 max-w-[1280px] px-5 sm:-mt-14">
 
-        <div className="grid overflow-hidden rounded-2xl bg-white shadow-[0_20px_60px_rgba(0,0,0,0.12)] md:grid-cols-4">
+        <div className="grid overflow-hidden rounded-2xl bg-white shadow-[0_20px_60px_rgba(0,0,0,0.16)] md:grid-cols-4">
+
+          {/* AVAILABILITY */}
 
           <div className="flex items-center gap-4 border-b border-black/10 p-6 md:border-b-0 md:border-r">
 
@@ -265,6 +305,9 @@ function App() {
 
           </div>
 
+
+          {/* CHECK IN */}
+
           <button className="flex flex-col items-start justify-center border-b border-black/10 p-6 text-left transition-colors hover:bg-[#faf8f3] md:border-b-0 md:border-r">
 
             <span className="text-xs uppercase tracking-widest text-black/40">
@@ -276,6 +319,9 @@ function App() {
             </span>
 
           </button>
+
+
+          {/* CHECK OUT */}
 
           <button className="flex flex-col items-start justify-center border-b border-black/10 p-6 text-left transition-colors hover:bg-[#faf8f3] md:border-b-0 md:border-r">
 
@@ -289,7 +335,10 @@ function App() {
 
           </button>
 
-          <button className="flex items-center justify-center gap-3 bg-[#20221f] p-6 font-semibold text-white transition-colors hover:bg-[#353832]">
+
+          {/* SEARCH */}
+
+          <button className="flex items-center justify-center gap-3 bg-[#20221f] p-6 font-semibold text-white transition-all duration-300 hover:bg-[#b28b4d]">
 
             Search rooms
 
@@ -311,6 +360,8 @@ function App() {
 
         <div className="grid gap-14 lg:grid-cols-[0.75fr_1.25fr] lg:items-center">
 
+          {/* LOCATION INFO */}
+
           <div>
 
             <div className="flex items-center gap-3">
@@ -326,6 +377,7 @@ function App() {
 
             </div>
 
+
             <h2 className="mt-6 font-serif text-5xl font-medium leading-[0.95] sm:text-6xl lg:text-7xl">
 
               Right in the
@@ -338,15 +390,17 @@ function App() {
 
             </h2>
 
+
             <p className="mt-7 max-w-md text-base leading-8 text-black/60 sm:text-lg">
               Visit Shakti Palace in the heart of Ponda,
               Goa — convenient for guests exploring the
               town and surrounding areas.
             </p>
 
-            {/* ADDRESS CARD */}
 
-            <div className="mt-8 rounded-2xl border border-black/10 bg-white p-6">
+            {/* ADDRESS */}
+
+            <div className="mt-8 rounded-2xl border border-black/10 bg-white p-6 shadow-sm">
 
               <div className="flex gap-4">
 
@@ -374,9 +428,12 @@ function App() {
 
             </div>
 
+
             {/* ACTIONS */}
 
             <div className="mt-6 flex flex-wrap gap-3">
+
+              {/* GOLD DIRECTIONS BUTTON */}
 
               <a
                 href="https://www.google.com/maps/dir/?api=1&destination=Hotel+Shakti+Palace,+Super+Market+Complex,+Ponda,+Goa+403401"
@@ -393,6 +450,9 @@ function App() {
                 />
 
               </a>
+
+
+              {/* PHONE */}
 
               <a
                 href="tel:+917875968565"
@@ -462,6 +522,7 @@ function App() {
 
           </h2>
 
+
           <div className="flex items-end">
 
             <p className="max-w-xl text-base leading-8 text-black/60 sm:text-lg">
@@ -477,7 +538,7 @@ function App() {
       </section>
 
 
-      {/* ================= TEMPORARY SECTIONS ================= */}
+      {/* ================= TEMPORARY ROOMS ================= */}
 
       <section
         id="rooms"
@@ -489,6 +550,7 @@ function App() {
         </p>
 
       </section>
+
 
       <section id="dining" className="h-1" />
 
