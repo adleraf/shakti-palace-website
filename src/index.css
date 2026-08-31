@@ -57,3 +57,41 @@ img {
   display: block;
   max-width: 100%;
 }
+/* =====================================================
+   MOBILE HERO FIX
+   Desktop is NOT affected
+===================================================== */
+
+@media (max-width: 767px) {
+
+  /* Give the hero more vertical space on phones */
+  .hero {
+    min-height: 540px;
+  }
+
+  /* Keep the original image, just frame it better */
+  .hero img {
+    object-fit: cover;
+    object-position: center center;
+  }
+
+  /* Move hero content below the navbar */
+  .hero > div:last-child {
+    padding-top: 135px;
+  }
+
+}
+
+
+/* Smaller phones */
+@media (max-width: 480px) {
+
+  .hero {
+    min-height: 520px;
+  }
+
+  .hero img {
+    object-position: center center;
+  }
+
+}
