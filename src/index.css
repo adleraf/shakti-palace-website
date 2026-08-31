@@ -58,40 +58,93 @@ img {
   max-width: 100%;
 }
 /* =====================================================
-   MOBILE HERO FIX
-   Desktop is NOT affected
+   MOBILE FIX — DO NOT AFFECT DESKTOP
 ===================================================== */
 
 @media (max-width: 767px) {
 
-  /* Give the hero more vertical space on phones */
-  .hero {
-    min-height: 540px;
+  /* HERO */
+  section.relative.aspect-\[1899\/882\] {
+    aspect-ratio: auto !important;
+    height: 560px !important;
   }
 
-  /* Keep the original image, just frame it better */
-  .hero img {
-    object-fit: cover;
-    object-position: center center;
+  /* Keep the original hotel photo */
+  section.relative.aspect-\[1899\/882\] > img {
+    object-fit: cover !important;
+    object-position: center center !important;
   }
 
-  /* Move hero content below the navbar */
-  .hero > div:last-child {
-    padding-top: 135px;
+  /* Move hero content DOWN so the logo doesn't cover it */
+  section.relative.aspect-\[1899\/882\] > div.z-10 > div {
+    align-items: flex-start !important;
+    padding-top: 175px !important;
+  }
+
+  /* Smaller mobile heading */
+  section.relative.aspect-\[1899\/882\] h1 {
+    font-size: 42px !important;
+    line-height: 0.95 !important;
+    max-width: 330px !important;
+  }
+
+  /* Hero description */
+  section.relative.aspect-\[1899\/882\] h1 + p {
+    margin-top: 18px !important;
+    max-width: 330px !important;
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+  }
+
+  /* Hero buttons */
+  section.relative.aspect-\[1899\/882\] h1 + p + div {
+    margin-top: 18px !important;
+  }
+
+
+  /* =================================================
+     BOOKING DATE TEXT
+  ================================================= */
+
+  #booking input[type="date"] {
+    color: #20221f !important;
+    -webkit-text-fill-color: #20221f !important;
+    opacity: 1 !important;
+    font-size: 21px !important;
+    min-height: 42px !important;
+    background: transparent !important;
+  }
+
+  #booking input[type="date"]:disabled {
+    color: #20221f !important;
+    -webkit-text-fill-color: #20221f !important;
+    opacity: 1 !important;
+  }
+
+  /* Make the date controls easier to tap */
+  #booking label {
+    min-height: 125px;
   }
 
 }
 
 
-/* Smaller phones */
-@media (max-width: 480px) {
+/* =====================================================
+   VERY SMALL PHONES
+===================================================== */
 
-  .hero {
-    min-height: 520px;
+@media (max-width: 390px) {
+
+  section.relative.aspect-\[1899\/882\] {
+    height: 550px !important;
   }
 
-  .hero img {
-    object-position: center center;
+  section.relative.aspect-\[1899\/882\] > div.z-10 > div {
+    padding-top: 170px !important;
+  }
+
+  section.relative.aspect-\[1899\/882\] h1 {
+    font-size: 39px !important;
   }
 
 }

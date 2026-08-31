@@ -36,9 +36,10 @@ function App() {
             <img
               src={logo}
               alt="Shakti Palace"
-              className="h-12 w-auto object-contain sm:h-14"
+              className="h-10 w-auto object-contain sm:h-14"
             />
           </a>
+
 
           {/* DESKTOP NAV */}
 
@@ -89,6 +90,7 @@ function App() {
 
           </div>
 
+
           {/* MOBILE MENU BUTTON */}
 
           <button
@@ -100,6 +102,7 @@ function App() {
           </button>
 
         </nav>
+
 
         {/* MOBILE MENU */}
 
@@ -167,13 +170,34 @@ function App() {
 
       {/* ================= HERO ================= */}
 
-      <section className="relative aspect-[1899/882] w-full overflow-hidden bg-[#171914]">
+      <section
+        className="
+          relative
+          h-[560px]
+          w-full
+          overflow-hidden
+          bg-[#171914]
+          lg:aspect-[1899/882]
+          lg:h-auto
+        "
+      >
+
+        {/* ORIGINAL HERO IMAGE */}
 
         <img
           src={heroImage}
           alt="Shakti Palace, Ponda Goa"
-          className="absolute inset-0 h-full w-full object-fill"
+          className="
+            absolute
+            inset-0
+            h-full
+            w-full
+            object-cover
+            object-center
+            lg:object-fill
+          "
         />
+
 
         {/* DARK GRADIENT FOR READABILITY */}
 
@@ -181,13 +205,29 @@ function App() {
 
         <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/55 to-transparent" />
 
+
         {/* HERO CONTENT */}
 
         <div className="absolute inset-0 z-10">
 
-          <div className="mx-auto flex h-full max-w-[1400px] items-center px-6 pt-24 lg:px-10 lg:pt-20">
+          <div
+            className="
+              mx-auto
+              flex
+              h-full
+              max-w-[1400px]
+              items-start
+              px-6
+              pt-[150px]
+              lg:items-center
+              lg:px-10
+              lg:pt-20
+            "
+          >
 
             <div className="max-w-2xl">
+
+              {/* LOCATION */}
 
               <div className="mb-5 flex items-center gap-4 sm:mb-7">
 
@@ -199,7 +239,22 @@ function App() {
 
               </div>
 
-              <h1 className="font-serif text-[clamp(42px,6.5vw,100px)] font-medium leading-[0.9] tracking-[-0.025em] text-white drop-shadow-[0_3px_12px_rgba(0,0,0,0.45)]">
+
+              {/* HERO TITLE */}
+
+              <h1
+                className="
+                  font-serif
+                  text-[40px]
+                  font-medium
+                  leading-[0.95]
+                  tracking-[-0.025em]
+                  text-white
+                  drop-shadow-[0_3px_12px_rgba(0,0,0,0.45)]
+                  sm:text-[clamp(42px,6.5vw,100px)]
+                  sm:leading-[0.9]
+                "
+              >
 
                 A place to stay,
 
@@ -211,10 +266,30 @@ function App() {
 
               </h1>
 
-              <p className="mt-5 max-w-lg text-sm leading-6 text-white/85 drop-shadow-[0_2px_5px_rgba(0,0,0,0.8)] sm:mt-7 sm:text-base sm:leading-7 lg:text-lg">
+
+              {/* DESCRIPTION */}
+
+              <p
+                className="
+                  mt-5
+                  max-w-[330px]
+                  text-sm
+                  leading-6
+                  text-white/85
+                  drop-shadow-[0_2px_5px_rgba(0,0,0,0.8)]
+                  sm:mt-7
+                  sm:max-w-lg
+                  sm:text-base
+                  sm:leading-7
+                  lg:text-lg
+                "
+              >
                 Comfortable stays, welcoming hospitality and
                 memorable dining in the heart of Ponda, Goa.
               </p>
+
+
+              {/* HERO BUTTONS */}
 
               <div className="mt-6 flex flex-wrap gap-3 sm:mt-8 sm:gap-4">
 
@@ -230,6 +305,7 @@ function App() {
                   />
                 </a>
 
+
                 <a
                   href="#about"
                   className="flex items-center gap-3 rounded-full border border-white/50 bg-black/20 px-6 py-3.5 text-sm font-medium text-white shadow-lg backdrop-blur-sm transition-all duration-300 hover:bg-white hover:text-[#20221f] sm:px-7 sm:py-4"
@@ -244,6 +320,7 @@ function App() {
           </div>
 
         </div>
+
 
         {/* SCROLL INDICATOR */}
 
@@ -412,6 +489,7 @@ function App() {
 
             </div>
 
+
             <h2 className="mt-6 font-serif text-5xl font-medium leading-[0.95] sm:text-6xl lg:text-7xl">
 
               Right in the
@@ -423,6 +501,7 @@ function App() {
               </span>
 
             </h2>
+
 
             <p className="mt-7 max-w-md text-base leading-8 text-black/60 sm:text-lg">
               Visit Shakti Palace in the heart of Ponda,
@@ -472,14 +551,12 @@ function App() {
                 rel="noopener noreferrer"
                 className="group inline-flex items-center gap-3 rounded-full bg-[#b28b4d] px-7 py-4 text-sm font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#9e793f] hover:shadow-xl"
               >
-
                 Get directions
 
                 <ArrowUpRight
                   size={17}
                   className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
                 />
-
               </a>
 
 
