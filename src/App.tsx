@@ -283,10 +283,9 @@ function App() {
                     className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
                   />
                 </a>
-
-                <a
+<a
   href="#about"
-  className="flex items-center gap-3 rounded-full border border-[#e3c88e] bg-black/20 px-6 py-3.5 text-sm font-medium text-[#e3c88e] shadow-lg backdrop-blur-sm transition-all duration-300 hover:bg-white sm:px-7 sm:py-4"
+  className="flex items-center gap-3 rounded-full border border-[#e3c88e]/80 bg-black/20 px-6 py-3.5 text-sm font-medium text-[#e3c88e] shadow-lg backdrop-blur-sm transition-all duration-300 hover:bg-white hover:text-[#20221f] sm:px-7 sm:py-4"
 >
   Discover Shakti Palace
 </a>
