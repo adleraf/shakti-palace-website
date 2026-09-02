@@ -7,6 +7,7 @@ import {
   X,
   MapPin,
   Phone,
+  UserRound,
 } from "lucide-react";
 
 import logo from "./assets/shakti-palace-logo.png";
@@ -61,23 +62,44 @@ function App() {
   ];
 
   return (
-    <main className="min-h-screen bg-[#f7f3ea] text-[#20221f]">
+    <>
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&display=swap');
+
+        .shakti-brand {
+          font-family: 'Cormorant Garamond', Georgia, serif;
+          color: #e3c88e;
+        }
+      `}</style>
+
+      <main className="min-h-screen bg-[#f7f3ea] text-[#20221f]">
 
       {/* ================= NAVBAR ================= */}
 
       <header className="absolute left-0 top-0 z-50 w-full">
         <nav className="mx-auto flex max-w-[1400px] items-center justify-between px-6 py-5 lg:px-10">
 
-          <a
-            href="#"
-            className="rounded-xl bg-white/95 px-3 py-2 shadow-lg backdrop-blur-md transition-transform duration-300 hover:scale-[1.02]"
-          >
-            <img
-              src={logo}
-              alt="Shakti Palace"
-              className="h-12 w-auto object-contain sm:h-14"
-            />
-          </a>
+          <div className="flex min-w-0 items-center gap-2 sm:gap-3">
+            <a
+              href="#"
+              className="shrink-0 rounded-xl bg-white/95 px-3 py-2 shadow-lg backdrop-blur-md transition-transform duration-300 hover:scale-[1.02]"
+            >
+              <img
+                src={logo}
+                alt="Shakti Palace"
+                className="h-12 w-auto object-contain sm:h-14"
+              />
+            </a>
+
+            <div className="shakti-brand min-w-0 leading-none">
+              <span className="block text-[8px] font-semibold uppercase tracking-[0.24em] sm:text-[9px] lg:text-[10px]">
+                Hotel
+              </span>
+              <span className="mt-1 block whitespace-nowrap text-[17px] font-semibold tracking-[0.05em] sm:text-[20px] lg:text-[24px]">
+                SHAKTI PALACE
+              </span>
+            </div>
+          </div>
 
           {/* DESKTOP NAV */}
 
@@ -208,7 +230,7 @@ function App() {
 
     
 
-      <section className="relative aspect-[1899/882] w-full overflow-hidden bg-[#171914]">
+      <section className="relative min-h-[560px] w-full overflow-hidden bg-[#171914] sm:min-h-[620px] lg:aspect-[1899/882] lg:min-h-0">
 
         <img
           src={heroImage}
@@ -222,7 +244,7 @@ function App() {
 
         <div className="absolute inset-0 z-10">
 
-          <div className="mx-auto flex h-full max-w-[1400px] items-center px-6 pt-24 lg:px-10 lg:pt-20">
+          <div className="mx-auto flex h-full max-w-[1400px] items-center px-5 pt-28 sm:px-6 sm:pt-32 lg:px-10 lg:pt-20">
 
             <div className="max-w-2xl">
 
@@ -231,7 +253,7 @@ function App() {
              
               </div>
 
-              <h1 className="font-serif text-[clamp(42px,6.5vw,100px)] font-medium leading-[0.9] tracking-[-0.025em] text-white drop-shadow-[0_3px_12px_rgba(0,0,0,0.45)]">
+              <h1 className="max-w-[350px] font-serif text-[clamp(40px,10vw,100px)] font-medium leading-[0.92] tracking-[-0.025em] text-white drop-shadow-[0_3px_12px_rgba(0,0,0,0.45)] sm:max-w-xl lg:max-w-2xl">
 
                 A place to stay,
 
@@ -243,7 +265,7 @@ function App() {
 
               </h1>
 
-              <p className="mt-5 max-w-lg text-sm leading-6 text-white/85 drop-shadow-[0_2px_5px_rgba(0,0,0,0.8)] sm:mt-7 sm:text-base sm:leading-7 lg:text-lg">
+              <p className="mt-5 max-w-[340px] text-sm leading-6 text-white/85 drop-shadow-[0_2px_5px_rgba(0,0,0,0.8)] sm:mt-7 sm:max-w-lg sm:text-base sm:leading-7 lg:text-lg">
                 Comfortable stays, welcoming hospitality and
                 memorable dining in the heart of Ponda, Goa.
               </p>
@@ -263,11 +285,11 @@ function App() {
                 </a>
 
                 <a
-                  href="#about"
-                  className="flex items-center gap-3 rounded-full border border-white/50 bg-black/20 px-6 py-3.5 text-sm font-medium text-white shadow-lg backdrop-blur-sm transition-all duration-300 hover:bg-white hover:text-[#20221f] sm:px-7 sm:py-4"
-                >
-                  Discover Shakti Palace
-                </a>
+  href="#about"
+  className="flex items-center gap-3 rounded-full border border-[#e3c88e] bg-black/20 px-6 py-3.5 text-sm font-medium text-[#e3c88e] shadow-lg backdrop-blur-sm transition-all duration-300 hover:bg-white sm:px-7 sm:py-4"
+>
+  Discover Shakti Palace
+</a>
 
               </div>
 
@@ -291,254 +313,440 @@ function App() {
 
 
       {/* ================= BOOKING ================= */}
+      <section id="booking" className="relative z-30">
+        <div className="mx-auto -mt-14 w-full max-w-[1480px] lg:-mt-[58px]">
+          {/* Mobile / tablet booking card */}
+          <div className="mx-auto w-[calc(100%-32px)] max-w-[380px] overflow-visible rounded-[24px] bg-white shadow-[0_20px_60px_rgba(0,0,0,0.15)] lg:hidden">
+            {/* Check Availability */}
+            <div className="flex items-center gap-4 px-5 py-5 sm:px-6 sm:py-6">
+              <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-[#f5ecdc]">
+                <CalendarDays size={23} className="text-[#b28b4d]" />
+              </div>
 
-     <div className="mx-auto flex w-full max-w-[1480px] overflow-visible rounded-[22px] bg-white shadow-[0_20px_60px_rgba(0,0,0,0.15)]">
+              <div className="min-w-0">
+                <p className="text-[13px] font-semibold uppercase tracking-[0.14em] text-[#20221f] sm:text-sm">
+                  Check availability
+                </p>
+                <p className="mt-1 text-sm text-black/45">
+                  Find your perfect stay
+                </p>
+              </div>
+            </div>
 
-  {/* Check Availability */}
-  <div className="flex min-w-[330px] flex-1 items-center gap-5 px-7 py-6">
-    <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-[#f5ecdc]">
-      <CalendarDays
-        size={23}
-        className="text-[#b28b4d]"
-      />
-    </div>
+            {/* Dates */}
+            <div className="grid grid-cols-2 border-t border-black/10">
+              {/* Check in */}
+              <div className="min-w-0 border-r border-black/10 px-4 py-4 sm:px-5">
+                <span className="block text-[10px] font-semibold uppercase tracking-[0.13em] text-[#a27b3e] sm:text-xs">
+                  Check-in
+                </span>
 
-    <div>
-      <p className="text-sm font-semibold uppercase tracking-[0.16em] text-[#20221f]">
-        Check availability
-      </p>
+                <div className="relative mt-2 h-12 overflow-hidden rounded-xl border border-black/10 bg-white">
+                  <CalendarDays
+                    size={18}
+                    className="pointer-events-none absolute left-3 top-1/2 z-10 -translate-y-1/2 text-[#b28b4d]"
+                  />
+                  <span
+                    className={`pointer-events-none absolute left-10 right-2 top-1/2 z-[1] -translate-y-1/2 truncate text-[12px] ${
+                      checkIn ? "text-[#20221f]" : "text-black/45"
+                    } sm:text-[13px]`}
+                  >
+                    {checkIn || "Select date"}
+                  </span>
+                  <input
+                    type="date"
+                    min={today}
+                    value={checkIn}
+                    onChange={(e) => setCheckIn(e.target.value)}
+                    aria-label="Check-in date"
+                    className="absolute inset-0 z-20 h-full w-full cursor-pointer opacity-0"
+                  />
+                </div>
+              </div>
 
-      <p className="mt-1 text-sm text-black/45">
-        Find your perfect stay
-      </p>
-    </div>
-  </div>
+              {/* Check out */}
+              <div className="min-w-0 px-4 py-4 sm:px-5">
+                <span className="block text-[10px] font-semibold uppercase tracking-[0.13em] text-[#a27b3e] sm:text-xs">
+                  Check-out
+                </span>
 
+                <div className="relative mt-2 h-12 overflow-hidden rounded-xl border border-black/10 bg-white">
+                  <CalendarDays
+                    size={18}
+                    className="pointer-events-none absolute left-3 top-1/2 z-10 -translate-y-1/2 text-[#b28b4d]"
+                  />
+                  <span
+                    className={`pointer-events-none absolute left-10 right-2 top-1/2 z-[1] -translate-y-1/2 truncate text-[12px] ${
+                      checkOut ? "text-[#20221f]" : "text-black/45"
+                    } sm:text-[13px]`}
+                  >
+                    {checkOut || "Select date"}
+                  </span>
+                  <input
+                    type="date"
+                    min={checkIn || today}
+                    value={checkOut}
+                    onChange={(e) => setCheckOut(e.target.value)}
+                    aria-label="Check-out date"
+                    className="absolute inset-0 z-20 h-full w-full cursor-pointer opacity-0"
+                  />
+                </div>
+              </div>
+            </div>
 
-  {/* Check In */}
-  <div className="flex min-w-[230px] flex-1 flex-col justify-center border-l border-black/10 px-7 py-6">
+            {/* Rooms & Guests */}
+            <div className="relative border-t border-black/10 px-4 py-4 sm:px-5">
+              <span className="block text-[10px] font-semibold uppercase tracking-[0.13em] text-[#a27b3e] sm:text-xs">
+                Guests & rooms
+              </span>
 
-    <span className="text-xs font-medium uppercase tracking-[0.15em] text-black/40">
-      Check in
-    </span>
+              <button
+                type="button"
+                onClick={() => setGuestMenuOpen(!guestMenuOpen)}
+                className="mt-2 flex h-12 w-full items-center justify-between rounded-xl border border-black/10 bg-white px-4 text-left text-sm font-medium text-black"
+              >
+                <span className="flex min-w-0 items-center gap-3 truncate">
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#f3ead9]">
+                    <UserRound size={17} className="text-[#a27b3e]" />
+                  </span>
+                  <span className="truncate">
+                    {guests} {guests === 1 ? "Guest" : "Guests"}
+                    <span className="mx-1.5 text-black/25">·</span>
+                    {selectedRooms}{" "}
+                    {selectedRooms === 1 ? "Room" : "Rooms"}
+                  </span>
+                </span>
 
-    <div className="mt-2 flex items-center justify-between">
-      <input
-        type="date"
-        min={today}
-        value={checkIn}
-        onChange={(e) => setCheckIn(e.target.value)}
-        className="w-full bg-transparent text-base font-medium text-black outline-none"
-      />
+                <ChevronDown
+                  size={18}
+                  className={`shrink-0 transition-transform duration-200 ${
+                    guestMenuOpen ? "rotate-180" : ""
+                  }`}
+                />
+              </button>
 
-      {/*<CalendarDays
-        size={20}
-        className="ml-3 shrink-0 text-black"
-      />*/}
+              {guestMenuOpen && (
+                <div className="absolute bottom-auto left-4 right-4 top-[calc(100%+8px)] z-[100] rounded-2xl border border-black/10 bg-white p-4 shadow-2xl sm:left-5 sm:right-5">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm font-semibold text-black">Rooms</p>
+                      <p className="mt-1 text-xs text-black/40">
+                        How many rooms?
+                      </p>
+                    </div>
 
-    </div>
+                    <div className="flex items-center gap-3">
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setSelectedRooms(Math.max(1, selectedRooms - 1))
+                        }
+                        className="flex h-8 w-8 items-center justify-center rounded-full border border-black/15 text-lg hover:bg-black/5"
+                      >
+                        −
+                      </button>
+                      <span className="w-6 text-center text-sm font-semibold">
+                        {selectedRooms}
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() => setSelectedRooms(selectedRooms + 1)}
+                        className="flex h-8 w-8 items-center justify-center rounded-full border border-black/15 text-lg hover:bg-black/5"
+                      >
+                        +
+                      </button>
+                    </div>
+                  </div>
 
-  </div>
+                  <div className="mt-5 flex items-center justify-between border-t border-black/10 pt-5">
+                    <div>
+                      <p className="text-sm font-semibold text-black">Guests</p>
+                      <p className="mt-1 text-xs text-black/40">
+                        Adults & children
+                      </p>
+                    </div>
 
+                    <div className="flex items-center gap-3">
+                      <button
+                        type="button"
+                        onClick={() => setGuests(Math.max(1, guests - 1))}
+                        className="flex h-8 w-8 items-center justify-center rounded-full border border-black/15 text-lg hover:bg-black/5"
+                      >
+                        −
+                      </button>
+                      <span className="w-6 text-center text-sm font-semibold">
+                        {guests}
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() => setGuests(guests + 1)}
+                        className="flex h-8 w-8 items-center justify-center rounded-full border border-black/15 text-lg hover:bg-black/5"
+                      >
+                        +
+                      </button>
+                    </div>
+                  </div>
 
-  {/* Check Out */}
-  <div className="flex min-w-[230px] flex-1 flex-col justify-center border-l border-black/10 px-7 py-6">
+                  <button
+                    type="button"
+                    onClick={() => setGuestMenuOpen(false)}
+                    className="mt-5 w-full rounded-xl bg-[#b28b4d] py-3 text-sm font-semibold text-white transition hover:bg-[#9e793f]"
+                  >
+                    Done
+                  </button>
+                </div>
+              )}
+            </div>
 
-    <span className="text-xs font-medium uppercase tracking-[0.15em] text-black/40">
-      Check out
-    </span>
-
-    <div className="mt-2 flex items-center justify-between">
-      <input
-        type="date"
-        min={checkIn || today}
-        value={checkOut}
-        onChange={(e) => setCheckOut(e.target.value)}
-        className="w-full bg-transparent text-base font-medium text-black outline-none"
-      />
-
-      {/*<CalendarDays
-        size={20}
-        className="ml-3 shrink-0 text-black"
-      />*/}
-    </div>
-
-  </div>
-
-
-  {/* Rooms & Guests */}
-  <div className="relative flex min-w-[280px] flex-1 flex-col justify-center border-l border-black/10 px-7 py-6">
-
-    <span className="text-xs font-medium uppercase tracking-[0.15em] text-black/40">
-      Rooms & Guests
-    </span>
-
-    <button
-      type="button"
-      onClick={() => setGuestMenuOpen(!guestMenuOpen)}
-      className="mt-2 flex w-full items-center justify-between text-left text-base font-medium text-black"
-    >
-
-      <span>
-        {selectedRooms}{" "}
-        {selectedRooms === 1 ? "Room" : "Rooms"}
-
-        <span className="mx-2 text-black/25">
-          ·
-        </span>
-
-        {guests}{" "}
-        {guests === 1 ? "Guest" : "Guests"}
-      </span>
-
-      <ChevronDown
-        size={18}
-        className={`transition-transform duration-200 ${
-          guestMenuOpen ? "rotate-180" : ""
-        }`}
-      />
-
-    </button>
-
-
-    {/* Guest / Room Dropdown */}
-    {guestMenuOpen && (
-      <div className="absolute bottom-auto left-4 right-4 top-[calc(100%+10px)] z-[100] rounded-2xl border border-black/10 bg-white p-5 shadow-2xl">
-
-        {/* Rooms */}
-        <div className="flex items-center justify-between">
-
-          <div>
-            <p className="text-sm font-semibold text-black">
-              Rooms
-            </p>
-
-            <p className="mt-1 text-xs text-black/40">
-              How many rooms?
-            </p>
-          </div>
-
-          <div className="flex items-center gap-3">
-
+            {/* Search */}
             <button
               type="button"
-              onClick={() =>
-                setSelectedRooms(
-                  Math.max(1, selectedRooms - 1)
-                )
-              }
-              className="flex h-8 w-8 items-center justify-center rounded-full border border-black/15 text-lg hover:bg-black/5"
+              onClick={() => {
+                if (!checkIn || !checkOut) {
+                  alert("Please select your check-in and check-out dates.");
+                  return;
+                }
+
+                if (new Date(checkOut) <= new Date(checkIn)) {
+                  alert("Check-out date must be after check-in date.");
+                  return;
+                }
+
+                alert(
+                  `Searching for ${selectedRooms} ${
+                    selectedRooms === 1 ? "room" : "rooms"
+                  } for ${guests} ${
+                    guests === 1 ? "guest" : "guests"
+                  } from ${checkIn} to ${checkOut}.`
+                );
+              }}
+              className="flex min-h-14 w-full items-center justify-center gap-3 rounded-b-[24px] bg-[#b28b4d] px-6 text-sm font-semibold uppercase tracking-[0.08em] text-white transition hover:bg-[#9e793f]"
             >
-              −
+              Check availability
+              <ArrowUpRight size={18} />
             </button>
-
-            <span className="w-6 text-center text-sm font-semibold">
-              {selectedRooms}
-            </span>
-
-            <button
-              type="button"
-              onClick={() =>
-                setSelectedRooms(selectedRooms + 1)
-              }
-              className="flex h-8 w-8 items-center justify-center rounded-full border border-black/15 text-lg hover:bg-black/5"
-            >
-              +
-            </button>
-
           </div>
 
+          {/* Desktop booking bar — original structure/dimensions preserved */}
+          <div className="hidden w-full overflow-visible rounded-[22px] bg-white shadow-[0_20px_60px_rgba(0,0,0,0.15)] lg:flex">
+            {/* Check Availability */}
+            <div className="flex min-w-[330px] flex-1 items-center gap-5 px-7 py-6">
+              <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-[#f5ecdc]">
+                <CalendarDays
+                  size={23}
+                  className="text-[#b28b4d]"
+                />
+              </div>
+
+              <div>
+                <p className="text-sm font-semibold uppercase tracking-[0.16em] text-[#20221f]">
+                  Check availability
+                </p>
+
+                <p className="mt-1 text-sm text-black/45">
+                  Find your perfect stay
+                </p>
+              </div>
+            </div>
+
+            {/* Check In */}
+            <div className="flex min-w-[230px] flex-1 flex-col justify-center border-l border-black/10 px-7 py-6">
+              <span className="text-xs font-medium uppercase tracking-[0.15em] text-black/40">
+                Check in
+              </span>
+
+              <div className="relative mt-2 flex items-center">
+                <CalendarDays
+                  size={20}
+                  className="pointer-events-none absolute left-0 z-10 shrink-0 text-[#b28b4d]"
+                />
+                <input
+                  type="date"
+                  min={today}
+                  value={checkIn}
+                  onChange={(e) => setCheckIn(e.target.value)}
+                  className="w-full bg-transparent pl-8 text-base font-medium text-black outline-none [color-scheme:light]"
+                />
+              </div>
+            </div>
+
+            {/* Check Out */}
+            <div className="flex min-w-[230px] flex-1 flex-col justify-center border-l border-black/10 px-7 py-6">
+              <span className="text-xs font-medium uppercase tracking-[0.15em] text-black/40">
+                Check out
+              </span>
+
+              <div className="relative mt-2 flex items-center">
+                <CalendarDays
+                  size={20}
+                  className="pointer-events-none absolute left-0 z-10 shrink-0 text-[#b28b4d]"
+                />
+                <input
+                  type="date"
+                  min={checkIn || today}
+                  value={checkOut}
+                  onChange={(e) => setCheckOut(e.target.value)}
+                  className="w-full bg-transparent pl-8 text-base font-medium text-black outline-none [color-scheme:light]"
+                />
+              </div>
+            </div>
+
+            {/* Rooms & Guests */}
+            <div className="relative flex min-w-[280px] flex-1 flex-col justify-center border-l border-black/10 px-7 py-6">
+              <span className="text-xs font-medium uppercase tracking-[0.15em] text-black/40">
+                Rooms & Guests
+              </span>
+
+              <button
+                type="button"
+                onClick={() => setGuestMenuOpen(!guestMenuOpen)}
+                className="mt-2 flex w-full items-center justify-between text-left text-base font-medium text-black"
+              >
+                <span>
+                  {selectedRooms}{" "}
+                  {selectedRooms === 1 ? "Room" : "Rooms"}
+
+                  <span className="mx-2 text-black/25">·</span>
+
+                  {guests}{" "}
+                  {guests === 1 ? "Guest" : "Guests"}
+                </span>
+
+                <ChevronDown
+                  size={18}
+                  className={`transition-transform duration-200 ${
+                    guestMenuOpen ? "rotate-180" : ""
+                  }`}
+                />
+              </button>
+
+              {/* Guest / Room Dropdown */}
+              {guestMenuOpen && (
+                <div className="absolute bottom-auto left-4 right-4 top-[calc(100%+10px)] z-[100] rounded-2xl border border-black/10 bg-white p-5 shadow-2xl">
+                  {/* Rooms */}
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm font-semibold text-black">
+                        Rooms
+                      </p>
+
+                      <p className="mt-1 text-xs text-black/40">
+                        How many rooms?
+                      </p>
+                    </div>
+
+                    <div className="flex items-center gap-3">
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setSelectedRooms(
+                            Math.max(1, selectedRooms - 1)
+                          )
+                        }
+                        className="flex h-8 w-8 items-center justify-center rounded-full border border-black/15 text-lg hover:bg-black/5"
+                      >
+                        −
+                      </button>
+
+                      <span className="w-6 text-center text-sm font-semibold">
+                        {selectedRooms}
+                      </span>
+
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setSelectedRooms(selectedRooms + 1)
+                        }
+                        className="flex h-8 w-8 items-center justify-center rounded-full border border-black/15 text-lg hover:bg-black/5"
+                      >
+                        +
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Guests */}
+                  <div className="mt-5 flex items-center justify-between border-t border-black/10 pt-5">
+                    <div>
+                      <p className="text-sm font-semibold text-black">
+                        Guests
+                      </p>
+
+                      <p className="mt-1 text-xs text-black/40">
+                        Adults & children
+                      </p>
+                    </div>
+
+                    <div className="flex items-center gap-3">
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setGuests(
+                            Math.max(1, guests - 1)
+                          )
+                        }
+                        className="flex h-8 w-8 items-center justify-center rounded-full border border-black/15 text-lg hover:bg-black/5"
+                      >
+                        −
+                      </button>
+
+                      <span className="w-6 text-center text-sm font-semibold">
+                        {guests}
+                      </span>
+
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setGuests(guests + 1)
+                        }
+                        className="flex h-8 w-8 items-center justify-center rounded-full border border-black/15 text-lg hover:bg-black/5"
+                      >
+                        +
+                      </button>
+                    </div>
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={() => setGuestMenuOpen(false)}
+                    className="mt-5 w-full rounded-xl bg-[#b28b4d] py-3 text-sm font-semibold text-white transition hover:bg-[#9e793f]"
+                  >
+                    Done
+                  </button>
+                </div>
+              )}
+            </div>
+
+            {/* SEARCH ROOMS — original desktop button */}
+            <button
+              type="button"
+              onClick={() => {
+                if (!checkIn || !checkOut) {
+                  alert("Please select your check-in and check-out dates.");
+                  return;
+                }
+
+                if (new Date(checkOut) <= new Date(checkIn)) {
+                  alert("Check-out date must be after check-in date.");
+                  return;
+                }
+
+                alert(
+                  `Searching for ${selectedRooms} ${
+                    selectedRooms === 1 ? "room" : "rooms"
+                  } for ${guests} ${
+                    guests === 1 ? "guest" : "guests"
+                  } from ${checkIn} to ${checkOut}.`
+                );
+              }}
+              className="flex min-w-[210px] items-center justify-center gap-3 rounded-r-[22px] bg-[#b28b4d] px-8 text-base font-semibold uppercase tracking-[0.08em] text-white transition hover:bg-[#9e793f]"
+            >
+              Check availability
+              <ArrowUpRight size={19} />
+            </button>
+          </div>
         </div>
+      </section>
 
-
-        {/* Guests */}
-        <div className="mt-5 flex items-center justify-between border-t border-black/10 pt-5">
-
-          <div>
-            <p className="text-sm font-semibold text-black">
-              Guests
-            </p>
-
-            <p className="mt-1 text-xs text-black/40">
-              Adults & children
-            </p>
-          </div>
-
-          <div className="flex items-center gap-3">
-
-            <button
-              type="button"
-              onClick={() =>
-                setGuests(
-                  Math.max(1, guests - 1)
-                )
-              }
-              className="flex h-8 w-8 items-center justify-center rounded-full border border-black/15 text-lg hover:bg-black/5"
-            >
-              −
-            </button>
-
-            <span className="w-6 text-center text-sm font-semibold">
-              {guests}
-            </span>
-
-            <button
-              type="button"
-              onClick={() =>
-                setGuests(guests + 1)
-              }
-              className="flex h-8 w-8 items-center justify-center rounded-full border border-black/15 text-lg hover:bg-black/5"
-            >
-              +
-            </button>
-
-          </div>
-
-        </div>
-
-
-        <button
-          type="button"
-          onClick={() => setGuestMenuOpen(false)}
-          className="mt-5 w-full rounded-xl bg-[#b28b4d] py-3 text-sm font-semibold text-white transition hover:bg-[#9e793f]"
-        >
-          Done
-        </button>
-
-      </div>
-    )}
-
-  </div>
-
-
-  {/* SEARCH ROOMS — SEPARATE RIGHT SIDE */}
-<button
-  type="button"
-  onClick={() => {
-    if (!checkIn || !checkOut) {
-      alert("Please select your check-in and check-out dates.");
-      return;
-    }
-
-    if (new Date(checkOut) <= new Date(checkIn)) {
-      alert("Check-out date must be after check-in date.");
-      return;
-    }
-
-    alert(
-      `Searching for ${selectedRooms} ${
-        selectedRooms === 1 ? "room" : "rooms"
-      } for ${guests} ${
-        guests === 1 ? "guest" : "guests"
-      } from ${checkIn} to ${checkOut}.`
-    );
-  }}
-  className="flex min-w-[210px] items-center justify-center gap-3 rounded-r-[22px] bg-[#20221f] px-8 text-base font-semibold text-white transition hover:bg-[#171916]"
->
-  Search rooms
-  <ArrowUpRight size={19} />
-</button>
-</div>
 
       {/* ================= LOCATION ================= */}
 
@@ -843,6 +1051,7 @@ function App() {
       </section>
 
     </main>
+    </>
   );
 }
 
