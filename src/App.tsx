@@ -18,9 +18,18 @@ import room3 from "./assets/room-3.webp";
 import room4 from "./assets/room-4.webp";
 
 function App() {
+
   const [menuOpen, setMenuOpen] = useState(false);
+
   const [checkIn, setCheckIn] = useState("");
+
   const [checkOut, setCheckOut] = useState("");
+
+  const [guests, setGuests] = useState(2);
+
+  const [selectedRooms, setSelectedRooms] = useState(1);
+
+  const [guestMenuOpen, setGuestMenuOpen] = useState(false);
 
   const today = new Date().toISOString().split("T")[0];
 
@@ -74,50 +83,50 @@ function App() {
 
           <div className="hidden items-center gap-1 rounded-full border border-white/25 bg-[#11140f]/90 px-3 py-2 shadow-[0_8px_30px_rgba(0,0,0,0.4)] backdrop-blur-xl lg:flex">
 
-            <a
-              href="#rooms"
-              className="rounded-full px-4 py-2 text-sm font-semibold text-[#e3c88e] transition-all duration-300 hover:bg-white/10 hover:text-white"
-            >
-              Rooms
-            </a>
+  <a
+    href="#rooms"
+    className="rounded-full px-4 py-2 text-sm font-semibold !text-[#b28b4d] transition-all duration-300 hover:bg-white/10 hover:!text-white"
+  >
+    Rooms
+  </a>
 
-            <a
-              href="#dining"
-              className="rounded-full px-4 py-2 text-sm font-semibold text-[#e3c88e] transition-all duration-300 hover:bg-white/10 hover:text-white"
-            >
-              Dining
-            </a>
+  <a
+    href="#dining"
+    className="rounded-full px-4 py-2 text-sm font-semibold !text-[#b28b4d] transition-all duration-300 hover:bg-white/10 hover:!text-white"
+  >
+    Dining
+  </a>
 
-            <a
-              href="#gallery"
-              className="rounded-full px-4 py-2 text-sm font-semibold text-[#e3c88e] transition-all duration-300 hover:bg-white/10 hover:text-white"
-            >
-              Gallery
-            </a>
+  <a
+    href="#gallery"
+    className="rounded-full px-4 py-2 text-sm font-semibold !text-[#b28b4d] transition-all duration-300 hover:bg-white/10 hover:!text-white"
+  >
+    Gallery
+  </a>
 
-            <a
-              href="#about"
-              className="rounded-full px-4 py-2 text-sm font-semibold text-[#e3c88e] transition-all duration-300 hover:bg-white/10 hover:text-white"
-            >
-              About
-            </a>
+  <a
+    href="#about"
+    className="rounded-full px-4 py-2 text-sm font-semibold !text-[#b28b4d] transition-all duration-300 hover:bg-white/10 hover:!text-white"
+  >
+    About
+  </a>
 
-            <a
-              href="#location"
-              className="rounded-full px-4 py-2 text-sm font-semibold text-[#e3c88e] transition-all duration-300 hover:bg-white/10 hover:text-white"
-            >
-              Location
-            </a>
+  <a
+    href="#location"
+    className="rounded-full px-4 py-2 text-sm font-semibold !text-[#b28b4d] transition-all duration-300 hover:bg-white/10 hover:!text-white"
+  >
+    Location
+  </a>
 
-            <a
-              href="#booking"
-              className="ml-1 flex items-center gap-2 rounded-full bg-[#b28b4d] px-6 py-3 text-sm font-semibold text-white shadow-md transition-all duration-300 hover:bg-[#9e793f] hover:shadow-lg"
-            >
-              Book now
-              <ArrowUpRight size={16} />
-            </a>
+  <a
+    href="#booking"
+    className="ml-1 flex items-center gap-2 rounded-full bg-[#b28b4d] px-6 py-3 text-sm font-semibold text-white shadow-md transition-all duration-300 hover:bg-[#9e793f] hover:shadow-lg"
+  >
+    Book now
+    <ArrowUpRight size={16} />
+  </a>
 
-          </div>
+</div>
 
           {/* MOBILE MENU BUTTON */}
 
@@ -197,6 +206,8 @@ function App() {
 
       {/* ================= HERO ================= */}
 
+    
+
       <section className="relative aspect-[1899/882] w-full overflow-hidden bg-[#171914]">
 
         <img
@@ -217,12 +228,7 @@ function App() {
 
               <div className="mb-5 flex items-center gap-4 sm:mb-7">
 
-                <span className="h-px w-8 bg-[#d9bd87] sm:w-10" />
-
-                <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[#e4cfaa] sm:text-xs sm:tracking-[0.35em]">
-                  Ponda · Goa
-                </p>
-
+             
               </div>
 
               <h1 className="font-serif text-[clamp(42px,6.5vw,100px)] font-medium leading-[0.9] tracking-[-0.025em] text-white drop-shadow-[0_3px_12px_rgba(0,0,0,0.45)]">
@@ -286,126 +292,253 @@ function App() {
 
       {/* ================= BOOKING ================= */}
 
-      <section
-        id="booking"
-        className="relative z-30 mx-auto -mt-10 max-w-[1280px] scroll-mt-24 px-5 sm:-mt-14"
-      >
+     <div className="mx-auto flex w-full max-w-[1480px] overflow-visible rounded-[22px] bg-white shadow-[0_20px_60px_rgba(0,0,0,0.15)]">
 
-        <div className="grid overflow-hidden rounded-2xl bg-white shadow-[0_20px_60px_rgba(0,0,0,0.16)] md:grid-cols-4">
+  {/* Check Availability */}
+  <div className="flex min-w-[330px] flex-1 items-center gap-5 px-7 py-6">
+    <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-[#f5ecdc]">
+      <CalendarDays
+        size={23}
+        className="text-[#b28b4d]"
+      />
+    </div>
 
-          <div className="flex items-center gap-4 border-b border-black/10 p-6 md:border-b-0 md:border-r">
+    <div>
+      <p className="text-sm font-semibold uppercase tracking-[0.16em] text-[#20221f]">
+        Check availability
+      </p>
 
-            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#f3ead9] text-[#a27b3e]">
-              <CalendarDays size={20} />
-            </div>
+      <p className="mt-1 text-sm text-black/45">
+        Find your perfect stay
+      </p>
+    </div>
+  </div>
 
-            <div>
 
-              <p className="text-xs font-bold uppercase tracking-[0.18em]">
-                Check availability
-              </p>
+  {/* Check In */}
+  <div className="flex min-w-[230px] flex-1 flex-col justify-center border-l border-black/10 px-7 py-6">
 
-              <p className="mt-1 text-xs text-black/50">
-                Find your perfect stay
-              </p>
+    <span className="text-xs font-medium uppercase tracking-[0.15em] text-black/40">
+      Check in
+    </span>
 
-            </div>
+    <div className="mt-2 flex items-center justify-between">
+      <input
+        type="date"
+        min={today}
+        value={checkIn}
+        onChange={(e) => setCheckIn(e.target.value)}
+        className="w-full bg-transparent text-base font-medium text-black outline-none"
+      />
+
+      {/*<CalendarDays
+        size={20}
+        className="ml-3 shrink-0 text-black"
+      />*/}
+
+    </div>
+
+  </div>
+
+
+  {/* Check Out */}
+  <div className="flex min-w-[230px] flex-1 flex-col justify-center border-l border-black/10 px-7 py-6">
+
+    <span className="text-xs font-medium uppercase tracking-[0.15em] text-black/40">
+      Check out
+    </span>
+
+    <div className="mt-2 flex items-center justify-between">
+      <input
+        type="date"
+        min={checkIn || today}
+        value={checkOut}
+        onChange={(e) => setCheckOut(e.target.value)}
+        className="w-full bg-transparent text-base font-medium text-black outline-none"
+      />
+
+      {/*<CalendarDays
+        size={20}
+        className="ml-3 shrink-0 text-black"
+      />*/}
+    </div>
+
+  </div>
+
+
+  {/* Rooms & Guests */}
+  <div className="relative flex min-w-[280px] flex-1 flex-col justify-center border-l border-black/10 px-7 py-6">
+
+    <span className="text-xs font-medium uppercase tracking-[0.15em] text-black/40">
+      Rooms & Guests
+    </span>
+
+    <button
+      type="button"
+      onClick={() => setGuestMenuOpen(!guestMenuOpen)}
+      className="mt-2 flex w-full items-center justify-between text-left text-base font-medium text-black"
+    >
+
+      <span>
+        {selectedRooms}{" "}
+        {selectedRooms === 1 ? "Room" : "Rooms"}
+
+        <span className="mx-2 text-black/25">
+          ·
+        </span>
+
+        {guests}{" "}
+        {guests === 1 ? "Guest" : "Guests"}
+      </span>
+
+      <ChevronDown
+        size={18}
+        className={`transition-transform duration-200 ${
+          guestMenuOpen ? "rotate-180" : ""
+        }`}
+      />
+
+    </button>
+
+
+    {/* Guest / Room Dropdown */}
+    {guestMenuOpen && (
+      <div className="absolute bottom-auto left-4 right-4 top-[calc(100%+10px)] z-[100] rounded-2xl border border-black/10 bg-white p-5 shadow-2xl">
+
+        {/* Rooms */}
+        <div className="flex items-center justify-between">
+
+          <div>
+            <p className="text-sm font-semibold text-black">
+              Rooms
+            </p>
+
+            <p className="mt-1 text-xs text-black/40">
+              How many rooms?
+            </p>
+          </div>
+
+          <div className="flex items-center gap-3">
+
+            <button
+              type="button"
+              onClick={() =>
+                setSelectedRooms(
+                  Math.max(1, selectedRooms - 1)
+                )
+              }
+              className="flex h-8 w-8 items-center justify-center rounded-full border border-black/15 text-lg hover:bg-black/5"
+            >
+              −
+            </button>
+
+            <span className="w-6 text-center text-sm font-semibold">
+              {selectedRooms}
+            </span>
+
+            <button
+              type="button"
+              onClick={() =>
+                setSelectedRooms(selectedRooms + 1)
+              }
+              className="flex h-8 w-8 items-center justify-center rounded-full border border-black/15 text-lg hover:bg-black/5"
+            >
+              +
+            </button>
 
           </div>
 
-          {/* CHECK IN */}
+        </div>
 
-          <label className="flex cursor-pointer flex-col justify-center border-b border-black/10 p-6 transition-colors hover:bg-[#faf8f3] md:border-b-0 md:border-r">
 
-            <span className="text-xs uppercase tracking-widest text-black/40">
-              Check in
+        {/* Guests */}
+        <div className="mt-5 flex items-center justify-between border-t border-black/10 pt-5">
+
+          <div>
+            <p className="text-sm font-semibold text-black">
+              Guests
+            </p>
+
+            <p className="mt-1 text-xs text-black/40">
+              Adults & children
+            </p>
+          </div>
+
+          <div className="flex items-center gap-3">
+
+            <button
+              type="button"
+              onClick={() =>
+                setGuests(
+                  Math.max(1, guests - 1)
+                )
+              }
+              className="flex h-8 w-8 items-center justify-center rounded-full border border-black/15 text-lg hover:bg-black/5"
+            >
+              −
+            </button>
+
+            <span className="w-6 text-center text-sm font-semibold">
+              {guests}
             </span>
 
-            <input
-              type="date"
-              value={checkIn}
-              min={today}
-              onChange={(e) => {
-
-                const selectedDate = e.target.value;
-
-                setCheckIn(selectedDate);
-
-                if (
-                  checkOut &&
-                  selectedDate &&
-                  checkOut < selectedDate
-                ) {
-                  setCheckOut("");
-                }
-
-              }}
-              className="mt-2 w-full cursor-pointer border-0 bg-transparent p-0 font-serif text-xl text-[#20221f] outline-none focus:ring-0"
-            />
-
-          </label>
-
-          {/* CHECK OUT */}
-
-          <label
-            className={`flex flex-col justify-center border-b border-black/10 p-6 transition-colors md:border-b-0 md:border-r ${
-              checkIn
-                ? "cursor-pointer hover:bg-[#faf8f3]"
-                : "cursor-not-allowed opacity-50"
-            }`}
-          >
-
-            <span className="text-xs uppercase tracking-widest text-black/40">
-              Check out
-            </span>
-
-            <input
-              type="date"
-              value={checkOut}
-              min={checkIn || today}
-              disabled={!checkIn}
-              onChange={(e) => setCheckOut(e.target.value)}
-              className="mt-2 w-full cursor-pointer border-0 bg-transparent p-0 font-serif text-xl text-[#20221f] outline-none focus:ring-0 disabled:cursor-not-allowed"
-            />
-
-          </label>
-
-          {/* SEARCH */}
-
-          <button
-            onClick={() => {
-
-              if (!checkIn) {
-                alert("Please select your check-in date.");
-                return;
+            <button
+              type="button"
+              onClick={() =>
+                setGuests(guests + 1)
               }
+              className="flex h-8 w-8 items-center justify-center rounded-full border border-black/15 text-lg hover:bg-black/5"
+            >
+              +
+            </button>
 
-              if (!checkOut) {
-                alert("Please select your check-out date.");
-                return;
-              }
-
-              alert(
-                `Searching rooms from ${checkIn} to ${checkOut}`
-              );
-
-            }}
-            className="group flex items-center justify-center gap-3 bg-[#20221f] p-6 font-semibold text-white transition-all duration-300 hover:bg-[#b28b4d]"
-          >
-
-            Search rooms
-
-            <ArrowUpRight
-              size={18}
-              className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
-            />
-
-          </button>
+          </div>
 
         </div>
 
-      </section>
 
+        <button
+          type="button"
+          onClick={() => setGuestMenuOpen(false)}
+          className="mt-5 w-full rounded-xl bg-[#b28b4d] py-3 text-sm font-semibold text-white transition hover:bg-[#9e793f]"
+        >
+          Done
+        </button>
+
+      </div>
+    )}
+
+  </div>
+
+
+  {/* SEARCH ROOMS — SEPARATE RIGHT SIDE */}
+<button
+  type="button"
+  onClick={() => {
+    if (!checkIn || !checkOut) {
+      alert("Please select your check-in and check-out dates.");
+      return;
+    }
+
+    if (new Date(checkOut) <= new Date(checkIn)) {
+      alert("Check-out date must be after check-in date.");
+      return;
+    }
+
+    alert(
+      `Searching for ${selectedRooms} ${
+        selectedRooms === 1 ? "room" : "rooms"
+      } for ${guests} ${
+        guests === 1 ? "guest" : "guests"
+      } from ${checkIn} to ${checkOut}.`
+    );
+  }}
+  className="flex min-w-[210px] items-center justify-center gap-3 rounded-r-[22px] bg-[#20221f] px-8 text-base font-semibold text-white transition hover:bg-[#171916]"
+>
+  Search rooms
+  <ArrowUpRight size={19} />
+</button>
+</div>
 
       {/* ================= LOCATION ================= */}
 
