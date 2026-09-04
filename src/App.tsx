@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import {
   ArrowUpRight,
   CalendarDays,
@@ -25,6 +25,26 @@ function App() {
   const [checkIn, setCheckIn] = useState("");
 
   const [checkOut, setCheckOut] = useState("");
+
+  const checkInRef = useRef<HTMLInputElement>(null);
+const checkOutRef = useRef<HTMLInputElement>(null);
+
+const openDatePicker = (input: HTMLInputElement | null) => {
+  if (!input) return;
+
+  if (typeof input.showPicker === "function") {
+    input.showPicker();
+  } else {
+    input.click();
+  }
+};
+
+  const formatDate = (value: string) => {
+  if (!value) return "dd-mm-yyyy";
+
+  const [year, month, day] = value.split("-");
+  return `${day}-${month}-${year}`;
+};
 
   const [guests, setGuests] = useState(2);
 
@@ -285,11 +305,12 @@ function App() {
                 </a>
 <a
   href="#about"
-  className="flex items-center gap-3 rounded-full border border-[#e3c88e]/80 bg-black/20 px-6 py-3.5 text-sm font-medium text-[#e3c88e] shadow-lg backdrop-blur-sm transition-all duration-300 hover:bg-white hover:text-[#20221f] sm:px-7 sm:py-4"
+  className="group flex items-center gap-3 rounded-full border border-[#e3c88e]/80 bg-black/20 px-6 py-3.5 text-sm font-medium shadow-lg backdrop-blur-sm transition-all duration-300 hover:bg-white sm:px-7 sm:py-4"
 >
-  Discover Shakti Palace
+  <span className="text-[#e3c88e] transition-colors duration-300 group-hover:text-[#20221f]">
+    Discover Shakti Palace
+  </span>
 </a>
-
               </div>
 
             </div>
@@ -335,63 +356,93 @@ function App() {
             {/* Dates */}
             <div className="grid grid-cols-2 border-t border-black/10">
               {/* Check in */}
-              <div className="min-w-0 border-r border-black/10 px-4 py-4 sm:px-5">
-                <span className="block text-[10px] font-semibold uppercase tracking-[0.13em] text-[#a27b3e] sm:text-xs">
-                  Check-in
-                </span>
+<div className="min-w-0 border-r border-black/10 px-4 py-4 sm:px-5">
+  <span className="block text-[10px] font-semibold uppercase tracking-[0.13em] text-[#a27b3e] sm:text-xs">
+    Check-in
+  </span>
 
-                <div className="relative mt-2 h-12 overflow-hidden rounded-xl border border-black/10 bg-white">
-                  <CalendarDays
-                    size={18}
-                    className="pointer-events-none absolute left-3 top-1/2 z-10 -translate-y-1/2 text-[#b28b4d]"
-                  />
-                  <span
-                    className={`pointer-events-none absolute left-10 right-2 top-1/2 z-[1] -translate-y-1/2 truncate text-[12px] ${
-                      checkIn ? "text-[#20221f]" : "text-black/45"
-                    } sm:text-[13px]`}
-                  >
-                    {checkIn || "Select date"}
-                  </span>
-                  <input
-                    type="date"
-                    min={today}
-                    value={checkIn}
-                    onChange={(e) => setCheckIn(e.target.value)}
-                    aria-label="Check-in date"
-                    className="absolute inset-0 z-20 h-full w-full cursor-pointer opacity-0"
-                  />
-                </div>
-              </div>
+  <label className="relative mt-2 flex h-12 items-center overflow-hidden rounded-xl border border-black/10 bg-white">
+  <button
+    type="button"
+    onClick={() => openDatePicker(checkInRef.current)}
+    className="flex h-full w-full items-center px-3 text-left"
+  >
+    <CalendarDays
+      size={18}
+      className="mr-3 shrink-0 text-[#b28b4d]"
+    />
 
-              {/* Check out */}
-              <div className="min-w-0 px-4 py-4 sm:px-5">
-                <span className="block text-[10px] font-semibold uppercase tracking-[0.13em] text-[#a27b3e] sm:text-xs">
-                  Check-out
-                </span>
+    <span
+      className={`truncate text-[13px] ${
+        checkIn ? "text-[#20221f]" : "text-black/45"
+      }`}
+    >
+      {formatDate(checkIn)}
+    </span>
+  </button>
 
-                <div className="relative mt-2 h-12 overflow-hidden rounded-xl border border-black/10 bg-white">
-                  <CalendarDays
-                    size={18}
-                    className="pointer-events-none absolute left-3 top-1/2 z-10 -translate-y-1/2 text-[#b28b4d]"
-                  />
-                  <span
-                    className={`pointer-events-none absolute left-10 right-2 top-1/2 z-[1] -translate-y-1/2 truncate text-[12px] ${
-                      checkOut ? "text-[#20221f]" : "text-black/45"
-                    } sm:text-[13px]`}
-                  >
-                    {checkOut || "Select date"}
-                  </span>
-                  <input
-                    type="date"
-                    min={checkIn || today}
-                    value={checkOut}
-                    onChange={(e) => setCheckOut(e.target.value)}
-                    aria-label="Check-out date"
-                    className="absolute inset-0 z-20 h-full w-full cursor-pointer opacity-0"
-                  />
-                </div>
-              </div>
-            </div>
+  <input
+    ref={checkInRef}
+    type="date"
+    min={today}
+    value={checkIn}
+    onChange={(e) => {
+      const selectedDate = e.target.value;
+      setCheckIn(selectedDate);
+
+      if (checkOut && selectedDate && checkOut < selectedDate) {
+        setCheckOut("");
+      }
+    }}
+    aria-label="Check-in date"
+    className="sr-only"
+  />
+</label>
+</div>
+</div>
+
+  <div className="min-w-0 px-4 py-4 sm:px-5">
+  <span className="block text-[10px] font-semibold uppercase tracking-[0.13em] text-[#a27b3e] sm:text-xs">
+    Check-out
+  </span>
+
+  <label
+  className={`relative mt-2 flex h-12 items-center overflow-hidden rounded-xl border border-black/10 bg-white ${
+    checkIn ? "" : "opacity-50"
+  }`}
+>
+  <button
+    type="button"
+    disabled={!checkIn}
+    onClick={() => openDatePicker(checkOutRef.current)}
+    className="flex h-full w-full items-center px-3 text-left disabled:cursor-not-allowed"
+  >
+    <CalendarDays
+      size={18}
+      className="mr-3 shrink-0 text-[#b28b4d]"
+    />
+
+    <span
+      className={`truncate text-[13px] ${
+        checkOut ? "text-[#20221f]" : "text-black/45"
+      }`}
+    >
+      {formatDate(checkOut)}
+    </span>
+  </button>
+
+  <input
+    ref={checkOutRef}
+    type="date"
+    min={checkIn || today}
+    value={checkOut}
+    disabled={!checkIn}
+    onChange={(e) => setCheckOut(e.target.value)}
+    aria-label="Check-out date"
+    className="sr-only"
+  />
+</label>
+</div>
 
             {/* Rooms & Guests */}
             <div className="relative border-t border-black/10 px-4 py-4 sm:px-5">
@@ -549,46 +600,96 @@ function App() {
             </div>
 
             {/* Check In */}
-            <div className="flex min-w-[230px] flex-1 flex-col justify-center border-l border-black/10 px-7 py-6">
-              <span className="text-xs font-medium uppercase tracking-[0.15em] text-black/40">
-                Check in
-              </span>
+<div className="flex min-w-[230px] flex-1 flex-col justify-center border-l border-black/10 px-7 py-6">
+  <span className="text-xs font-medium uppercase tracking-[0.15em] text-black/40">
+    Check in
+  </span>
 
-              <div className="relative mt-2 flex items-center">
-                <CalendarDays
-                  size={20}
-                  className="pointer-events-none absolute left-0 z-10 shrink-0 text-[#b28b4d]"
-                />
-                <input
-                  type="date"
-                  min={today}
-                  value={checkIn}
-                  onChange={(e) => setCheckIn(e.target.value)}
-                  className="w-full bg-transparent pl-8 text-base font-medium text-black outline-none [color-scheme:light]"
-                />
-              </div>
-            </div>
+  <label className="relative mt-2 flex h-8 items-center">
+  {/* Clickable visible date field */}
+  <button
+    type="button"
+    onClick={() => openDatePicker(checkInRef.current)}
+    className="flex h-full w-full items-center text-left"
+  >
+    <CalendarDays
+      size={20}
+      className="mr-3 shrink-0 text-[#b28b4d]"
+    />
 
-            {/* Check Out */}
-            <div className="flex min-w-[230px] flex-1 flex-col justify-center border-l border-black/10 px-7 py-6">
-              <span className="text-xs font-medium uppercase tracking-[0.15em] text-black/40">
-                Check out
-              </span>
+    <span
+      className={`text-base font-medium ${
+        checkIn ? "text-[#20221f]" : "text-black/45"
+      }`}
+    >
+      {formatDate(checkIn)}
+    </span>
+  </button>
 
-              <div className="relative mt-2 flex items-center">
-                <CalendarDays
-                  size={20}
-                  className="pointer-events-none absolute left-0 z-10 shrink-0 text-[#b28b4d]"
-                />
-                <input
-                  type="date"
-                  min={checkIn || today}
-                  value={checkOut}
-                  onChange={(e) => setCheckOut(e.target.value)}
-                  className="w-full bg-transparent pl-8 text-base font-medium text-black outline-none [color-scheme:light]"
-                />
-              </div>
-            </div>
+  {/* Actual date input — visually hidden */}
+  <input
+    ref={checkInRef}
+    type="date"
+    min={today}
+    value={checkIn}
+    onChange={(e) => {
+      const selectedDate = e.target.value;
+      setCheckIn(selectedDate);
+
+      if (checkOut && selectedDate && checkOut < selectedDate) {
+        setCheckOut("");
+      }
+    }}
+    aria-label="Check-in date"
+    className="sr-only"
+  />
+</label>
+</div>
+           {/* Check Out */}
+<div className="flex min-w-[230px] flex-1 flex-col justify-center border-l border-black/10 px-7 py-6">
+  <span className="text-xs font-medium uppercase tracking-[0.15em] text-black/40">
+    Check out
+  </span>
+
+  <label
+  className={`relative mt-2 flex h-8 items-center ${
+    checkIn ? "" : "opacity-50"
+  }`}
+>
+  {/* Clickable visible date field */}
+  <button
+    type="button"
+    disabled={!checkIn}
+    onClick={() => openDatePicker(checkOutRef.current)}
+    className="flex h-full w-full items-center text-left disabled:cursor-not-allowed"
+  >
+    <CalendarDays
+      size={20}
+      className="mr-3 shrink-0 text-[#b28b4d]"
+    />
+
+    <span
+      className={`text-base font-medium ${
+        checkOut ? "text-[#20221f]" : "text-black/45"
+      }`}
+    >
+      {formatDate(checkOut)}
+    </span>
+  </button>
+
+  {/* Actual date input — visually hidden */}
+  <input
+    ref={checkOutRef}
+    type="date"
+    min={checkIn || today}
+    value={checkOut}
+    disabled={!checkIn}
+    onChange={(e) => setCheckOut(e.target.value)}
+    aria-label="Check-out date"
+    className="sr-only"
+  />
+</label>
+</div>
 
             {/* Rooms & Guests */}
             <div className="relative flex min-w-[280px] flex-1 flex-col justify-center border-l border-black/10 px-7 py-6">
