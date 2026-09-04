@@ -353,97 +353,100 @@ const openDatePicker = (input: HTMLInputElement | null) => {
               </div>
             </div>
 
-            {/* Dates */}
-            <div className="grid grid-cols-2 border-t border-black/10">
-              {/* Check in */}
-<div className="min-w-0 border-r border-black/10 px-4 py-4 sm:px-5">
-  <span className="block text-[10px] font-semibold uppercase tracking-[0.13em] text-[#a27b3e] sm:text-xs">
-    Check-in
-  </span>
+{/* Dates */}
+<div className="grid grid-cols-2 border-t border-black/10">
 
-  <label className="relative mt-2 flex h-12 items-center overflow-hidden rounded-xl border border-black/10 bg-white">
-  <button
-    type="button"
-    onClick={() => openDatePicker(checkInRef.current)}
-    className="flex h-full w-full items-center px-3 text-left"
-  >
-    <CalendarDays
-      size={18}
-      className="mr-3 shrink-0 text-[#b28b4d]"
-    />
-
-    <span
-      className={`truncate text-[13px] ${
-        checkIn ? "text-[#20221f]" : "text-black/45"
-      }`}
-    >
-      {formatDate(checkIn)}
+  {/* Check-in */}
+  <div className="min-w-0 border-r border-black/10 px-4 py-4 sm:px-5">
+    <span className="block text-[10px] font-semibold uppercase tracking-[0.13em] text-[#a27b3e] sm:text-xs">
+      Check-in
     </span>
-  </button>
 
-  <input
-    ref={checkInRef}
-    type="date"
-    min={today}
-    value={checkIn}
-    onChange={(e) => {
-      const selectedDate = e.target.value;
-      setCheckIn(selectedDate);
+    <label className="relative mt-2 flex h-12 w-full items-center overflow-hidden rounded-xl border border-black/10 bg-white">
+      <button
+        type="button"
+        onClick={() => openDatePicker(checkInRef.current)}
+        className="flex h-full w-full items-center px-3 text-left"
+      >
+        <CalendarDays
+          size={18}
+          className="mr-3 shrink-0 text-[#b28b4d]"
+        />
 
-      if (checkOut && selectedDate && checkOut < selectedDate) {
-        setCheckOut("");
-      }
-    }}
-    aria-label="Check-in date"
-    className="sr-only"
-  />
-</label>
-</div>
-</div>
+        <span
+          className={`truncate text-[13px] ${
+            checkIn ? "text-[#20221f]" : "text-black/45"
+          }`}
+        >
+          {formatDate(checkIn)}
+        </span>
+      </button>
 
+      <input
+        ref={checkInRef}
+        type="date"
+        min={today}
+        value={checkIn}
+        onChange={(e) => {
+          const selectedDate = e.target.value;
+
+          setCheckIn(selectedDate);
+
+          if (checkOut && selectedDate && checkOut < selectedDate) {
+            setCheckOut("");
+          }
+        }}
+        aria-label="Check-in date"
+        className="sr-only"
+      />
+    </label>
+  </div>
+
+  {/* Check-out */}
   <div className="min-w-0 px-4 py-4 sm:px-5">
-  <span className="block text-[10px] font-semibold uppercase tracking-[0.13em] text-[#a27b3e] sm:text-xs">
-    Check-out
-  </span>
+    <span className="block text-[10px] font-semibold uppercase tracking-[0.13em] text-[#a27b3e] sm:text-xs">
+      Check-out
+    </span>
 
-  <label
-  className={`relative mt-2 flex h-12 items-center overflow-hidden rounded-xl border border-black/10 bg-white ${
-    checkIn ? "" : "opacity-50"
-  }`}
->
-  <button
-    type="button"
-    disabled={!checkIn}
-    onClick={() => openDatePicker(checkOutRef.current)}
-    className="flex h-full w-full items-center px-3 text-left disabled:cursor-not-allowed"
-  >
-    <CalendarDays
-      size={18}
-      className="mr-3 shrink-0 text-[#b28b4d]"
-    />
-
-    <span
-      className={`truncate text-[13px] ${
-        checkOut ? "text-[#20221f]" : "text-black/45"
+    <label
+      className={`relative mt-2 flex h-12 w-full items-center overflow-hidden rounded-xl border border-black/10 bg-white ${
+        !checkIn ? "opacity-50" : ""
       }`}
     >
-      {formatDate(checkOut)}
-    </span>
-  </button>
+      <button
+        type="button"
+        disabled={!checkIn}
+        onClick={() => openDatePicker(checkOutRef.current)}
+        className="flex h-full w-full items-center px-3 text-left disabled:cursor-not-allowed"
+      >
+        <CalendarDays
+          size={18}
+          className="mr-3 shrink-0 text-[#b28b4d]"
+        />
 
-  <input
-    ref={checkOutRef}
-    type="date"
-    min={checkIn || today}
-    value={checkOut}
-    disabled={!checkIn}
-    onChange={(e) => setCheckOut(e.target.value)}
-    aria-label="Check-out date"
-    className="sr-only"
-  />
-</label>
+        <span
+          className={`truncate text-[13px] ${
+            checkOut ? "text-[#20221f]" : "text-black/45"
+          }`}
+        >
+          {formatDate(checkOut)}
+        </span>
+      </button>
+
+      <input
+        ref={checkOutRef}
+        type="date"
+        min={checkIn || today}
+        value={checkOut}
+        disabled={!checkIn}
+        onChange={(e) => setCheckOut(e.target.value)}
+        aria-label="Check-out date"
+        className="sr-only"
+      />
+    </label>
+  </div>
+
 </div>
-
             {/* Rooms & Guests */}
             <div className="relative border-t border-black/10 px-4 py-4 sm:px-5">
               <span className="block text-[10px] font-semibold uppercase tracking-[0.13em] text-[#a27b3e] sm:text-xs">
