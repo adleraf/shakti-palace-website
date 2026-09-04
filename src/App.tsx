@@ -357,19 +357,19 @@ const openDatePicker = (input: HTMLInputElement | null) => {
 <div className="grid grid-cols-2 border-t border-black/10">
 
   {/* Check-in */}
-  <div className="min-w-0 border-r border-black/10 px-4 py-4 sm:px-5">
+  <div className="min-w-0 border-r border-black/10 px-4 py-3 sm:px-5">
     <span className="block text-[10px] font-semibold uppercase tracking-[0.13em] text-[#a27b3e] sm:text-xs">
       Check-in
     </span>
 
-    <label className="relative mt-2 flex h-12 w-full items-center overflow-hidden rounded-xl border border-black/10 bg-white">
+    <div className="relative mt-2 h-12 w-full overflow-hidden rounded-xl border border-black/10 bg-white">
       <button
         type="button"
         onClick={() => openDatePicker(checkInRef.current)}
-        className="flex h-full w-full items-center px-3 text-left"
+        className="absolute inset-0 z-10 flex h-full w-full items-center px-3 text-left"
       >
         <CalendarDays
-          size={18}
+          size={17}
           className="mr-3 shrink-0 text-[#b28b4d]"
         />
 
@@ -399,17 +399,17 @@ const openDatePicker = (input: HTMLInputElement | null) => {
         aria-label="Check-in date"
         className="sr-only"
       />
-    </label>
+    </div>
   </div>
 
   {/* Check-out */}
-  <div className="min-w-0 px-4 py-4 sm:px-5">
+  <div className="min-w-0 px-4 py-3 sm:px-5">
     <span className="block text-[10px] font-semibold uppercase tracking-[0.13em] text-[#a27b3e] sm:text-xs">
       Check-out
     </span>
 
-    <label
-      className={`relative mt-2 flex h-12 w-full items-center overflow-hidden rounded-xl border border-black/10 bg-white ${
+    <div
+      className={`relative mt-2 h-12 w-full overflow-hidden rounded-xl border border-black/10 bg-white ${
         !checkIn ? "opacity-50" : ""
       }`}
     >
@@ -417,10 +417,10 @@ const openDatePicker = (input: HTMLInputElement | null) => {
         type="button"
         disabled={!checkIn}
         onClick={() => openDatePicker(checkOutRef.current)}
-        className="flex h-full w-full items-center px-3 text-left disabled:cursor-not-allowed"
+        className="absolute inset-0 z-10 flex h-full w-full items-center px-3 text-left disabled:cursor-not-allowed"
       >
         <CalendarDays
-          size={18}
+          size={17}
           className="mr-3 shrink-0 text-[#b28b4d]"
         />
 
@@ -443,7 +443,7 @@ const openDatePicker = (input: HTMLInputElement | null) => {
         aria-label="Check-out date"
         className="sr-only"
       />
-    </label>
+    </div>
   </div>
 
 </div>
