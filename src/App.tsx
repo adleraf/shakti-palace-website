@@ -25,6 +25,7 @@ function App() {
   const [checkIn, setCheckIn] = useState("");
 
   const [checkOut, setCheckOut] = useState("");
+  const [showAvailability, setShowAvailability] = useState(false);
 
   type CalendarField = "checkIn" | "checkOut";
 
@@ -45,6 +46,8 @@ const formatDate = (value: string) => {
   const [selectedRooms, setSelectedRooms] = useState(1);
 
   const [guestMenuOpen, setGuestMenuOpen] = useState(false);
+
+ 
 
   const getLocalDateValue = (date: Date) => {
     const year = date.getFullYear();
@@ -654,13 +657,16 @@ const formatDate = (value: string) => {
                   return;
                 }
 
-                alert(
-                  `Searching for ${selectedRooms} ${
-                    selectedRooms === 1 ? "room" : "rooms"
-                  } for ${guests} ${
-                    guests === 1 ? "guest" : "guests"
-                  } from ${checkIn} to ${checkOut}.`
-                );
+               setShowAvailability(true);
+
+setTimeout(() => {
+  document
+    .getElementById("availability-results")
+    ?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+}, 50);
               }}
               className="flex min-h-14 w-full items-center justify-center gap-3 rounded-b-[24px] bg-[#b28b4d] px-6 text-sm font-semibold uppercase tracking-[0.08em] text-white transition hover:bg-[#9e793f]"
             >
@@ -861,32 +867,92 @@ const formatDate = (value: string) => {
             <button
               type="button"
               onClick={() => {
-                if (!checkIn || !checkOut) {
-                  alert("Please select your check-in and check-out dates.");
-                  return;
-                }
+  if (!checkIn || !checkOut) {
+    alert("Please select your check-in and check-out dates.");
+    return;
+  }
 
-                if (new Date(checkOut) <= new Date(checkIn)) {
-                  alert("Check-out date must be after check-in date.");
-                  return;
-                }
+  if (new Date(checkOut) <= new Date(checkIn)) {
+    alert("Check-out date must be after check-in date.");
+    return;
+  }
 
-                alert(
-                  `Searching for ${selectedRooms} ${
-                    selectedRooms === 1 ? "room" : "rooms"
-                  } for ${guests} ${
-                    guests === 1 ? "guest" : "guests"
-                  } from ${checkIn} to ${checkOut}.`
-                );
-              }}
-              className="flex min-w-[210px] items-center justify-center gap-3 rounded-r-[22px] bg-[#b28b4d] px-8 text-base font-semibold uppercase tracking-[0.08em] text-white transition hover:bg-[#9e793f]"
-            >
+  setShowAvailability(true);
+
+  setTimeout(() => {
+    document
+      .getElementById("availability-results")
+      ?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+  }, 50);
+}}
+  >
               Check availability
               <ArrowUpRight size={19} />
+
             </button>
           </div>
         </div>
       </section>
+{showAvailability && (
+  <section
+    id="availability-results"
+    className="mx-auto w-[calc(100%-32px)] max-w-[1000px] py-10 sm:py-14"
+  >
+    <div className="rounded-[28px] bg-white p-6 shadow-[0_20px_60px_rgba(0,0,0,0.12)] sm:p-8">
+
+      <p className="text-xs font-bold uppercase tracking-[0.25em] text-[#a27b3e]">
+        Available rooms
+      </p>
+
+      <h2 className="mt-3 font-serif text-4xl font-medium leading-none sm:text-5xl">
+        Choose your room
+      </h2>
+
+      <p className="mt-3 text-sm text-black/50">
+        {formatDate(checkIn)} → {formatDate(checkOut)} · {guests}{" "}
+        {guests === 1 ? "Guest" : "Guests"} · {selectedRooms}{" "}
+        {selectedRooms === 1 ? "Room" : "Rooms"}
+      </p>
+
+      <div className="mt-8 grid gap-4">
+        {rooms.map((room) => (
+          <div
+            key={room.name}
+            className="flex flex-col gap-5 rounded-2xl border border-black/10 p-4 sm:flex-row sm:items-center"
+          >
+            <img
+              src={room.image}
+              alt={room.name}
+              className="h-44 w-full rounded-xl object-cover sm:h-28 sm:w-44"
+            />
+
+            <div className="min-w-0 flex-1">
+              <h3 className="font-serif text-2xl">
+                {room.name}
+              </h3>
+
+              <p className="mt-2 text-sm leading-6 text-black/50">
+                {room.description}
+              </p>
+            </div>
+
+            <button
+              type="button"
+              className="flex shrink-0 items-center justify-center gap-2 rounded-full bg-[#b28b4d] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#9e793f]"
+            >
+              Select room
+              <ArrowUpRight size={17} />
+            </button>
+          </div>
+        ))}
+      </div>
+
+    </div>
+  </section>
+)}
 
 
       {/* ================= LOCATION ================= */}
