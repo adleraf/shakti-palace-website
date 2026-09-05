@@ -862,37 +862,40 @@ setTimeout(() => {
                 </div>
               )}
             </div>
+{/* SEARCH ROOMS */}
+<button
+  type="button"
+  onClick={() => {
+    if (!checkIn || !checkOut) {
+      alert("Please select your check-in and check-out dates.");
+      return;
+    }
 
-            {/* SEARCH ROOMS — original desktop button */}
-            <button
-              type="button"
-              onClick={() => {
-  if (!checkIn || !checkOut) {
-    alert("Please select your check-in and check-out dates.");
-    return;
-  }
+    if (new Date(checkOut) <= new Date(checkIn)) {
+      alert("Check-out date must be after check-in date.");
+      return;
+    }
 
-  if (new Date(checkOut) <= new Date(checkIn)) {
-    alert("Check-out date must be after check-in date.");
-    return;
-  }
+    setShowAvailability(true);
 
-  setShowAvailability(true);
+    setTimeout(() => {
+      document
+        .getElementById("availability-results")
+        ?.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+    }, 50);
+  }}
+  className="flex min-w-[210px] items-center justify-center gap-3 rounded-r-[22px] bg-[#b28b4d] px-8 text-base font-semibold uppercase tracking-[0.08em] text-white transition hover:bg-[#9e793f]"
+>
+  Check availability
 
-  setTimeout(() => {
-    document
-      .getElementById("availability-results")
-      ?.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
-  }, 50);
-}}
-  >
-              Check availability
-              <ArrowUpRight size={19} />
-
-            </button>
+  <ArrowUpRight
+    size={19}
+    className="text-white"
+  />
+</button>
           </div>
         </div>
       </section>
