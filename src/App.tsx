@@ -1258,7 +1258,15 @@ setTimeout(() => {
 
         </div>
 
-      </section>
+           </section>
+
+      {/* ================= FOOTER ================= */}
+
+      <footer className="border-t border-black/10 bg-[#20221f] px-6 py-8 text-center">
+        <p className="text-sm text-white/50">
+          © 2026 Shakti Palace. All rights reserved.
+        </p>
+      </footer>
 
     </main>
     </>
