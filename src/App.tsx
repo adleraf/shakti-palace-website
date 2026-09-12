@@ -19,6 +19,9 @@ import {
   Navigation,
   Compass,
   Car,
+  Coffee,
+  ShieldCheck,
+  ChefHat,
 } from "lucide-react";
 
 import logo from "./assets/shakti-palace-logo.png";
@@ -333,30 +336,61 @@ const formatDate = (value: string) => {
     { title: "Mopa Airport (GOX)", time: "65 mins", distance: "58 km", tag: "North Airport" },
   ];
 
+  const hotelHubPerks = [
+    {
+      icon: <Car size={22} />,
+      title: "Front Desk Taxi & Tour Desk",
+      description: "Our staff arranges trusted local cabs, temple circuit tours, and station/airport transfers directly from our doorstep.",
+    },
+    {
+      icon: <BedDouble size={22} />,
+      title: "Spotless AC Rooms & Fresh Linens",
+      description: "Return from humid sightseeing to cool air-conditioned comfort, clean linens, hot showers, and a peaceful night's rest.",
+    },
+    {
+      icon: <UtensilsCrossed size={22} />,
+      title: "In-House Goan & Indian Dining",
+      description: "Enjoy hot fish thalis, fresh rotis, or breakfast before leaving in the morning, with 24/7 in-room tea & coffee service.",
+    },
+    {
+      icon: <ShieldCheck size={22} />,
+      title: "Safe On-Site Parking & 24/7 Desk",
+      description: "Free secure parking for cars and rental bikes, with round-the-clock front desk assistance for late check-ins.",
+    },
+  ];
+
   const rooms = [
     {
       name: "Deluxe Room",
       image: room1,
       description:
-        "A comfortable and welcoming room designed for a relaxing stay.",
+        "A restful, beautifully appointed room featuring crisp linens, air-conditioning, and essential amenities for a comfortable Ponda stay.",
+      amenities: ["AC", "Free Wi-Fi", "Hot Shower", "LED TV"],
+      badge: "Popular Choice",
     },
     {
       name: "Premium Room",
       image: room2,
       description:
-        "A spacious room offering extra comfort for your stay in Ponda.",
+        "Spacious and quiet with upgraded wooden furnishings, ample wardrobe space, and dedicated seating area for extra relaxation.",
+      amenities: ["AC", "Free Wi-Fi", "Room Service", "Work Desk"],
+      badge: "Extra Spacious",
     },
     {
       name: "Family Room",
       image: room3,
       description:
-        "A convenient option for families and guests travelling together.",
+        "Generously sized accommodation tailored for families and groups travelling together, with comfortable bedding and ensuite bath.",
+      amenities: ["Multiple Beds", "AC", "Daily Housekeeping", "LED TV"],
+      badge: "Family Friendly",
     },
     {
       name: "Executive Room",
       image: room4,
       description:
-        "A refined and comfortable space for a relaxed experience.",
+        "Our finest accommodation featuring refined decor, premium bedding, ambient lighting, and dedicated in-room dining service.",
+      amenities: ["King Bed", "Fast Wi-Fi", "In-Room Dining", "Hot Shower"],
+      badge: "Premium Stay",
     },
   ];
 
@@ -1258,7 +1292,7 @@ setTimeout(() => {
       </section>
 
 
-      {/* ================= EXPLORE & ATTRACTIONS ================= */}
+      {/* ================= EXPLORE & HOTEL BASE ================= */}
 
       <section
         id="explore"
@@ -1271,50 +1305,84 @@ setTimeout(() => {
                 <div className="flex items-center gap-2.5">
                   <Compass size={17} className="text-[#a27b3e]" />
                   <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#a27b3e]">
-                    Explore Central Goa
+                    Hotel Shakti Palace · The Strategic Base
                   </p>
                 </div>
                 <h2 className="mt-4 font-serif text-5xl font-medium leading-none sm:text-6xl lg:text-7xl">
-                  Nearby Attractions
+                  Stay Central.
+                  <br />
+                  <span className="italic text-[#a27b3e]">Explore Goa with Ease.</span>
                 </h2>
               </div>
               <p className="max-w-md text-sm leading-6 text-black/60 sm:text-right">
-                Centrally located in Ponda, Shakti Palace puts you minutes away
-                from Goa's grandest temples, lush spice farms, and nature sanctuaries.
+                Skip coastal gridlock. Shakti Palace places you at Goa's geographic crossroads —
+                unwind in clean AC comfort, enjoy in-house dining, and take effortless day trips.
               </p>
             </div>
 
-            {/* Category Filter Tabs */}
-            <div className="mt-10 flex flex-wrap gap-2.5 sm:mt-12">
-              {attractionCategories.map((cat) => {
-                const count =
-                  cat === "All"
-                    ? attractions.length
-                    : attractions.filter((a) => a.category === cat).length;
-                const isActive = attractionCategory === cat;
+            {/* Hotel Advantages as your Travel Base */}
+            <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+              {hotelHubPerks.map((perk) => (
+                <div
+                  key={perk.title}
+                  className="rounded-2xl border border-black/8 bg-white p-6 shadow-sm transition-all duration-150 hover:-translate-y-0.5 hover:shadow-md"
+                >
+                  <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#f3ead9] text-[#a27b3e]">
+                    {perk.icon}
+                  </div>
+                  <h4 className="mt-4 font-serif text-lg font-semibold text-[#20221f]">
+                    {perk.title}
+                  </h4>
+                  <p className="mt-2 text-xs leading-5 text-black/60">
+                    {perk.description}
+                  </p>
+                </div>
+              ))}
+            </div>
 
-                return (
-                  <button
-                    key={cat}
-                    type="button"
-                    onClick={() => setAttractionCategory(cat)}
-                    className={`inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-xs font-semibold transition-all duration-150 ${
-                      isActive
-                        ? "bg-[#b28b4d] text-white shadow-md shadow-[#b28b4d]/25"
-                        : "border border-black/10 bg-white/80 text-[#20221f] hover:bg-white hover:border-[#b28b4d]/40"
-                    }`}
-                  >
-                    <span>{cat}</span>
-                    <span
-                      className={`flex h-5 w-5 items-center justify-center rounded-full text-[10px] font-bold ${
-                        isActive ? "bg-black/20 text-white" : "bg-black/5 text-black/50"
+            {/* Sights Header & Filter Tabs */}
+            <div className="mt-16 flex flex-col justify-between gap-6 border-t border-black/10 pt-12 sm:flex-row sm:items-end">
+              <div>
+                <p className="text-xs font-bold uppercase tracking-[0.25em] text-[#a27b3e]">
+                  Short Excursions From Our Lobby
+                </p>
+                <h3 className="mt-2 font-serif text-3xl font-medium text-[#20221f] sm:text-4xl">
+                  Day Trips Within Minutes of Your Room
+                </h3>
+              </div>
+
+              {/* Category Filter Tabs */}
+              <div className="flex flex-wrap gap-2">
+                {attractionCategories.map((cat) => {
+                  const count =
+                    cat === "All"
+                      ? attractions.length
+                      : attractions.filter((a) => a.category === cat).length;
+                  const isActive = attractionCategory === cat;
+
+                  return (
+                    <button
+                      key={cat}
+                      type="button"
+                      onClick={() => setAttractionCategory(cat)}
+                      className={`inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs font-semibold transition-all duration-150 ${
+                        isActive
+                          ? "bg-[#b28b4d] text-white shadow-md shadow-[#b28b4d]/25"
+                          : "border border-black/10 bg-white/80 text-[#20221f] hover:bg-white hover:border-[#b28b4d]/40"
                       }`}
                     >
-                      {count}
-                    </span>
-                  </button>
-                );
-              })}
+                      <span>{cat}</span>
+                      <span
+                        className={`flex h-4 w-4 items-center justify-center rounded-full text-[9px] font-bold ${
+                          isActive ? "bg-black/20 text-white" : "bg-black/5 text-black/50"
+                        }`}
+                      >
+                        {count}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
             </div>
           </ScrollReveal>
 
@@ -1335,11 +1403,9 @@ setTimeout(() => {
                           {item.badge}
                         </span>
 
-                        <div className="flex items-center gap-1.5 text-xs font-medium text-black/55">
-                          <Car size={13} className="text-[#a27b3e]" />
-                          <span>{item.time}</span>
-                          <span className="text-black/30">·</span>
-                          <span className="text-black/45">{item.distance}</span>
+                        <div className="flex items-center gap-1.5 rounded-full bg-[#f7f3ea] px-2.5 py-1 text-xs font-semibold text-[#a27b3e]">
+                          <Car size={13} />
+                          <span>{item.time} from hotel</span>
                         </div>
                       </div>
 
@@ -1366,18 +1432,25 @@ setTimeout(() => {
                     </div>
 
                     {/* Action Button */}
-                    <div className="mt-7 border-t border-black/6 pt-5">
+                    <div className="mt-7 flex items-center justify-between border-t border-black/6 pt-5">
                       <a
                         href={`https://www.google.com/maps/dir/Hotel+Shakti+Palace,+Super+Market+Complex,+Ponda,+Goa+403401/${encodeURIComponent(
                           item.mapQuery
                         )}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 text-xs font-semibold text-[#b28b4d] transition-colors hover:text-[#20221f]"
+                        className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#b28b4d] transition-colors hover:text-[#20221f]"
                       >
                         <Navigation size={13} />
-                        Get directions from hotel
+                        Route from Hotel
                         <ArrowUpRight size={14} />
+                      </a>
+
+                      <a
+                        href="tel:+917875968565"
+                        className="text-[11px] font-medium text-black/50 hover:text-[#a27b3e]"
+                      >
+                        Ask desk for taxi
                       </a>
                     </div>
                   </article>
@@ -1395,10 +1468,10 @@ setTimeout(() => {
                   </div>
                   <div>
                     <h4 className="font-serif text-lg font-semibold text-[#20221f]">
-                      Goa Transit & Travel Times
+                      Goa Transit Times from Hotel Shakti Palace
                     </h4>
                     <p className="text-xs text-black/55">
-                      Approximate driving distance and time from Hotel Shakti Palace
+                      Avoid coastal congestion — direct highway access to all major transit points
                     </p>
                   </div>
                 </div>
@@ -1407,7 +1480,7 @@ setTimeout(() => {
                   href="https://www.google.com/maps/dir/?api=1&destination=Hotel+Shakti+Palace,+Super+Market+Complex,+Ponda,+Goa+403401"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="self-start text-xs font-semibold text-[#a27b3e] hover:underline sm:self-auto inline-flex items-center gap-1.5"
+                  className="inline-flex items-center gap-1.5 self-start text-xs font-semibold text-[#a27b3e] hover:underline sm:self-auto"
                 >
                   Open in Google Maps
                   <ArrowUpRight size={14} />
@@ -1554,24 +1627,52 @@ setTimeout(() => {
                       className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                       loading="lazy"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-70" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-80" />
+
+                    {/* Room Badge */}
+                    <span className="absolute left-3 top-3 rounded-full bg-[#b28b4d] px-3 py-1 text-[11px] font-semibold tracking-wide text-white shadow-md">
+                      {room.badge}
+                    </span>
                   </div>
 
                   {/* CONTENT */}
                   <div className="flex flex-1 flex-col p-6">
-                    <h3 className="font-serif text-2xl">
+                    <h3 className="font-serif text-2xl font-medium text-white">
                       {room.name}
                     </h3>
-                    <p className="mt-3 flex-1 text-sm leading-6 text-white/55">
+                    <p className="mt-2.5 text-sm leading-6 text-white/60">
                       {room.description}
                     </p>
-                    <a
-                      href="#booking"
-                      className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-[#e3c88e] transition-colors hover:text-white"
-                    >
-                      Check availability
-                      <ArrowUpRight size={16} />
-                    </a>
+
+                    {/* Amenities pills */}
+                    <div className="mt-4 flex flex-wrap gap-1.5">
+                      {room.amenities.map((amenity) => (
+                        <span
+                          key={amenity}
+                          className="rounded-md border border-white/10 bg-white/5 px-2 py-0.5 text-[11px] text-white/75"
+                        >
+                          {amenity}
+                        </span>
+                      ))}
+                    </div>
+
+                    <div className="mt-6 flex flex-1 items-end justify-between border-t border-white/10 pt-4">
+                      <a
+                        href="#booking"
+                        className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#e3c88e] transition-colors hover:text-white"
+                      >
+                        Check availability
+                        <ArrowUpRight size={15} />
+                      </a>
+
+                      <a
+                        href="tel:+917875968565"
+                        className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10 text-white/80 transition hover:bg-[#b28b4d] hover:text-white"
+                        title="Call Reception to Book"
+                      >
+                        <Phone size={13} />
+                      </a>
+                    </div>
                   </div>
                 </article>
               </ScrollReveal>
@@ -1587,21 +1688,128 @@ setTimeout(() => {
 
       <section
         id="dining"
-        className="flex min-h-[300px] scroll-mt-24 items-center justify-center bg-[#f7f3ea] px-6"
+        className="scroll-mt-24 bg-[#f7f3ea] px-6 py-24 sm:py-32"
       >
+        <div className="mx-auto max-w-[1280px]">
+          <ScrollReveal>
+            <div className="flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
+              <div>
+                <div className="flex items-center gap-2">
+                  <ChefHat size={18} className="text-[#a27b3e]" />
+                  <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#a27b3e]">
+                    In-House Dining & Room Service
+                  </p>
+                </div>
+                <h2 className="mt-4 font-serif text-5xl font-medium leading-none sm:text-6xl lg:text-7xl">
+                  Flavours of Goa
+                </h2>
+              </div>
+              <p className="max-w-md text-sm leading-6 text-black/60 sm:text-right">
+                Enjoy home-style Goan coastal curries, fresh seafood, and comforting
+                North & South Indian dishes prepared fresh in our hotel kitchen.
+              </p>
+            </div>
+          </ScrollReveal>
 
-        <div className="text-center">
+          {/* Culinary Highlights */}
+          <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {[
+              {
+                tag: "Coastal Specialties",
+                title: "Goan Fish Thalis & Seafood",
+                text: "Crisp kingfish rava fry, authentic Goan fish curry with steamed rice, coastal prawn masala, and seasonal catch prepared with local kokum and spices.",
+                icon: <UtensilsCrossed size={22} />,
+                features: ["Fresh Local Catch", "Coconut & Kokum Curries", "Traditional Thali"],
+              },
+              {
+                tag: "Homestyle Classics",
+                title: "North & South Indian Favorites",
+                text: "Rich paneer butter masala, comforting dal tadka, piping-hot tandoori rotis, aromatic chicken biryanis, and warm vegetarian preparations.",
+                icon: <ChefHat size={22} />,
+                features: ["Pure Veg Options", "Freshly Cooked to Order", "Comfort Meals"],
+              },
+              {
+                tag: "24/7 Room Service",
+                title: "Morning Breakfast & In-Room Dining",
+                text: "Start your morning with hot Goan poee, poha, eggs to order, and steaming masala chai or filter coffee delivered straight to your bedside.",
+                icon: <Coffee size={22} />,
+                features: ["Bedside Service", "Morning Breakfast", "Hot Tea & Coffee 24/7"],
+              },
+            ].map((dish, index) => (
+              <ScrollReveal key={dish.title} delay={index * 0.09}>
+                <div className="flex h-full flex-col justify-between rounded-2xl border border-black/8 bg-white p-8 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-[#b28b4d]/40 hover:shadow-xl">
+                  <div>
+                    <div className="flex items-center justify-between">
+                      <span className="rounded-full bg-[#f3ead9] px-3 py-1 text-[11px] font-semibold text-[#a27b3e]">
+                        {dish.tag}
+                      </span>
+                      <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#f3ead9] text-[#a27b3e]">
+                        {dish.icon}
+                      </div>
+                    </div>
 
-          <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#a27b3e]">
-            Shakti Palace
-          </p>
+                    <h3 className="mt-5 font-serif text-2xl font-semibold text-[#20221f]">
+                      {dish.title}
+                    </h3>
 
-          <p className="mt-4 font-serif text-4xl italic sm:text-5xl">
-            Dining coming next
-          </p>
+                    <p className="mt-3 text-sm leading-6 text-black/60">
+                      {dish.text}
+                    </p>
 
+                    <div className="mt-6 flex flex-wrap gap-2">
+                      {dish.features.map((feat) => (
+                        <span
+                          key={feat}
+                          className="inline-flex items-center gap-1.5 rounded-lg bg-[#f7f3ea] px-2.5 py-1 text-[11px] font-medium text-black/70"
+                        >
+                          <Sparkles size={11} className="text-[#b28b4d]" />
+                          {feat}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="mt-8 border-t border-black/6 pt-5">
+                    <a
+                      href="tel:+917875968565"
+                      className="inline-flex items-center gap-2 text-xs font-semibold text-[#b28b4d] transition-colors hover:text-[#20221f]"
+                    >
+                      <Phone size={13} />
+                      Order in-room dining: +91 78759 68565
+                    </a>
+                  </div>
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
+
+          {/* Dining Times Strip */}
+          <ScrollReveal delay={0.2}>
+            <div className="mt-12 flex flex-wrap items-center justify-between gap-6 rounded-2xl border border-black/8 bg-white px-7 py-6 shadow-sm">
+              <div className="flex items-center gap-4">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#f3ead9] text-[#a27b3e]">
+                  <Clock size={18} />
+                </div>
+                <div>
+                  <h4 className="font-serif text-lg font-semibold text-[#20221f]">
+                    Kitchen Hours
+                  </h4>
+                  <p className="text-xs text-black/55">
+                    Breakfast: 7:30 AM – 10:30 AM · Lunch: 12:30 PM – 3:30 PM · Dinner: 7:30 PM – 10:30 PM
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2 text-xs font-semibold text-[#a27b3e]">
+                <span className="relative flex h-2 w-2">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+                </span>
+                <span>Tea, Coffee & Drinking Water available 24/7 at Reception</span>
+              </div>
+            </div>
+          </ScrollReveal>
         </div>
-
       </section>
 
 
@@ -1609,22 +1817,87 @@ setTimeout(() => {
 
       <section
         id="gallery"
-        className="flex min-h-[300px] scroll-mt-24 items-center justify-center bg-[#20221f] px-6 text-white"
+        className="scroll-mt-24 bg-[#20221f] px-6 py-24 text-white sm:py-32"
       >
+        <div className="mx-auto max-w-[1280px]">
+          <ScrollReveal>
+            <div className="flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
+              <div>
+                <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#e3c88e]">
+                  Visual Tour
+                </p>
+                <h2 className="mt-4 font-serif text-5xl font-medium leading-none sm:text-6xl lg:text-7xl">
+                  Moments at Shakti Palace
+                </h2>
+              </div>
+              <p className="max-w-md text-sm leading-6 text-white/55 sm:text-right">
+                A glimpse into our comfortable rooms, warm hospitality, and relaxed atmosphere in Ponda.
+              </p>
+            </div>
+          </ScrollReveal>
 
-        <div className="text-center">
+          <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {[
+              { img: heroImage, title: "Hotel Exterior & Entrance", desc: "Conveniently situated in Ponda Super Market Complex" },
+              { img: room1, title: "Deluxe Bedroom", desc: "Crisp linen, ambient lighting, and cooling AC" },
+              { img: room2, title: "Premium Living Space", desc: "Spacious quarters with comfortable seating" },
+              { img: room3, title: "Family Accommodations", desc: "Ample room for families visiting Goa temples & attractions" },
+              { img: room4, title: "Executive Suite", desc: "Refined comfort for relaxing after a long day" },
+              { img: heroImage, title: "Welcoming Front Porch", desc: "24/7 reception desk and vehicle parking" },
+            ].map((photo, index) => (
+              <ScrollReveal key={`${photo.title}-${index}`} delay={index * 0.07}>
+                <div className="group relative aspect-[4/3] overflow-hidden rounded-2xl bg-white/5 shadow-xl">
+                  <img
+                    src={photo.img}
+                    alt={photo.title}
+                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80 transition-opacity duration-200 group-hover:opacity-90" />
+                  <div className="absolute bottom-5 left-5 right-5">
+                    <h4 className="font-serif text-xl font-semibold text-white">
+                      {photo.title}
+                    </h4>
+                    <p className="mt-1 text-xs text-white/70">
+                      {photo.desc}
+                    </p>
+                  </div>
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
 
-          <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#e3c88e]">
-            Explore
-          </p>
-
-          <p className="mt-4 font-serif text-4xl italic sm:text-5xl">
-            Gallery coming next
-          </p>
-
+          {/* Quick Reservation Callout */}
+          <ScrollReveal delay={0.2}>
+            <div className="mt-16 flex flex-col items-center justify-between gap-6 rounded-3xl border border-white/10 bg-white/5 p-8 text-center sm:flex-row sm:text-left">
+              <div>
+                <h3 className="font-serif text-3xl font-medium text-white sm:text-4xl">
+                  Ready to book your stay in Ponda?
+                </h3>
+                <p className="mt-2 text-sm text-white/60">
+                  Best rates guaranteed when booking directly with our front desk.
+                </p>
+              </div>
+              <div className="flex flex-wrap gap-3 justify-center sm:justify-start">
+                <a
+                  href="#booking"
+                  className="inline-flex items-center gap-2 rounded-full bg-[#b28b4d] px-7 py-3.5 text-sm font-semibold text-white shadow-lg transition-all hover:bg-[#9e793f]"
+                >
+                  Book your stay
+                  <ArrowUpRight size={16} />
+                </a>
+                <a
+                  href="tel:+917875968565"
+                  className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-6 py-3.5 text-sm font-semibold text-white transition-all hover:bg-white/20"
+                >
+                  <Phone size={15} />
+                  +91 78759 68565
+                </a>
+              </div>
+            </div>
+          </ScrollReveal>
         </div>
-
-           </section>
+      </section>
 
       {/* ================= FOOTER ================= */}
 
