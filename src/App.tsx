@@ -14,6 +14,11 @@ import {
   UtensilsCrossed,
   MapPinned,
   Clock,
+  Star,
+  Sparkles,
+  Navigation,
+  Compass,
+  Car,
 } from "lucide-react";
 
 import logo from "./assets/shakti-palace-logo.png";
@@ -242,6 +247,92 @@ const formatDate = (value: string) => {
     );
   };
 
+  const [attractionCategory, setAttractionCategory] = useState<string>("All");
+
+  const attractionCategories = [
+    "All",
+    "Temples & Heritage",
+    "Nature & Spices",
+    "Adventure & Safari",
+  ];
+
+  const attractions = [
+    {
+      name: "Shri Shantadurga Temple",
+      category: "Temples & Heritage",
+      time: "6 mins",
+      distance: "3.5 km",
+      badge: "Most Sacred",
+      description:
+        "One of Goa's most revered Hindu temples dedicated to the goddess of peace, nestled in Kavlem foothills with rare Indo-Portuguese pagoda architecture.",
+      highlights: ["Deepstambha Lamp Tower", "Sacred Temple Lake", "Peaceful Foothills"],
+      mapQuery: "Shri+Shanta+Durga+Temple+Kavlem+Goa",
+    },
+    {
+      name: "Shri Mangeshi Temple",
+      category: "Temples & Heritage",
+      time: "10 mins",
+      distance: "7.0 km",
+      badge: "Iconic Landmark",
+      description:
+        "World-renowned 400-year-old Shiva temple in Priol famous for its majestic seven-storey octagonal lamp tower and illuminated festivals.",
+      highlights: ["7-Storey Deepstambha", "Sacred Water Tank", "Intricate Wood Carvings"],
+      mapQuery: "Mangueshi+Temple+Priol+Goa",
+    },
+    {
+      name: "Sahakari Spice Farm",
+      category: "Nature & Spices",
+      time: "5 mins",
+      distance: "2.5 km",
+      badge: "Top Experience",
+      description:
+        "Walk through fragrant vanilla, cardamom, and cinnamon plantations. Enjoy a warm garland welcome, herbal drink, and traditional Goan buffet lunch.",
+      highlights: ["Aromatic Guided Tour", "Authentic Goan Buffet", "Herbal Spice Bazaar"],
+      mapQuery: "Sahakari+Spice+Farm+Ponda+Goa",
+    },
+    {
+      name: "Safa Shahouri Masjid",
+      category: "Temples & Heritage",
+      time: "3 mins",
+      distance: "1.2 km",
+      badge: "16th Century",
+      description:
+        "Built in 1560 by Ibrahim Adil Shah of Bijapur, this historic single-chamber stone mosque features pointed arches and an ancient rectangular masonry tank.",
+      highlights: ["Adil Shahi Architecture", "Ancient Masonry Tank", "National Heritage Site"],
+      mapQuery: "Safa+Masjid+Ponda+Goa",
+    },
+    {
+      name: "Bondla Wildlife Sanctuary",
+      category: "Nature & Spices",
+      time: "25 mins",
+      distance: "18 km",
+      badge: "Ecotourism",
+      description:
+        "Lush rainforest sanctuary in the Western Ghats foothills with a botanical rose garden, mini zoological park, deer safari, and serene nature trails.",
+      highlights: ["Botanical Gardens", "Deer Safari & Zoo", "Forest Canopy Trek"],
+      mapQuery: "Bondla+Wildlife+Sanctuary+Goa",
+    },
+    {
+      name: "Dudhsagar Waterfalls Gateway",
+      category: "Adventure & Safari",
+      time: "40 mins",
+      distance: "32 km",
+      badge: "Must Visit",
+      description:
+        "Ponda is the premier hub to embark on the famous Dudhsagar 4x4 jungle jeep safari through Bhagwan Mahavir Wildlife Sanctuary to India's 5th tallest waterfall.",
+      highlights: ["4x4 Jungle Jeep Safari", "Milky 310m Cascade", "Mollem National Park"],
+      mapQuery: "Dudhsagar+Waterfalls+Goa",
+    },
+  ];
+
+  const travelHubs = [
+    { title: "Madgaon Railway Station", time: "28 mins", distance: "17 km", tag: "Rail Junction" },
+    { title: "Panaji Capital City", time: "32 mins", distance: "28 km", tag: "City Center" },
+    { title: "Dabolim Airport (GOI)", time: "38 mins", distance: "29 km", tag: "Airport" },
+    { title: "Colva & Benaulim Beaches", time: "38 mins", distance: "24 km", tag: "Beaches" },
+    { title: "Mopa Airport (GOX)", time: "65 mins", distance: "58 km", tag: "North Airport" },
+  ];
+
   const rooms = [
     {
       name: "Deluxe Room",
@@ -319,17 +410,10 @@ const formatDate = (value: string) => {
   </a>
 
   <a
-    href="#dining"
+    href="#explore"
     className="rounded-full px-4 py-2 text-sm font-semibold !text-[#b28b4d] transition-all duration-150 hover:bg-white/10 hover:!text-white"
   >
-    Dining
-  </a>
-
-  <a
-    href="#gallery"
-    className="rounded-full px-4 py-2 text-sm font-semibold !text-[#b28b4d] transition-all duration-150 hover:bg-white/10 hover:!text-white"
-  >
-    Gallery
+    Explore
   </a>
 
   <a
@@ -344,6 +428,13 @@ const formatDate = (value: string) => {
     className="rounded-full px-4 py-2 text-sm font-semibold !text-[#b28b4d] transition-all duration-150 hover:bg-white/10 hover:!text-white"
   >
     Location
+  </a>
+
+  <a
+    href="#dining"
+    className="rounded-full px-4 py-2 text-sm font-semibold !text-[#b28b4d] transition-all duration-150 hover:bg-white/10 hover:!text-white"
+  >
+    Dining
   </a>
 
   <a
@@ -384,19 +475,11 @@ const formatDate = (value: string) => {
               </a>
 
               <a
-                href="#dining"
+                href="#explore"
                 onClick={() => setMenuOpen(false)}
                 className="font-serif text-3xl"
               >
-                Dining
-              </a>
-
-              <a
-                href="#gallery"
-                onClick={() => setMenuOpen(false)}
-                className="font-serif text-3xl"
-              >
-                Gallery
+                Explore
               </a>
 
               <a
@@ -413,6 +496,14 @@ const formatDate = (value: string) => {
                 className="font-serif text-3xl"
               >
                 Location
+              </a>
+
+              <a
+                href="#dining"
+                onClick={() => setMenuOpen(false)}
+                className="font-serif text-3xl"
+              >
+                Dining
               </a>
 
               <a
@@ -458,6 +549,31 @@ const formatDate = (value: string) => {
               initial="hidden"
               animate="visible"
             >
+
+              {/* Google Reviews & Social Proof Floating Badge */}
+              <motion.div
+                variants={staggerChild}
+                className="mb-4 inline-flex flex-wrap items-center gap-2.5 rounded-full border border-white/20 bg-black/40 px-4 py-2 text-xs text-white shadow-xl backdrop-blur-md transition-all duration-200 hover:scale-[1.02] hover:border-[#e3c88e]/60 sm:mb-6"
+              >
+                <div className="flex items-center gap-0.5 text-[#facc15]">
+                  <Star size={13} className="fill-[#facc15]" />
+                  <Star size={13} className="fill-[#facc15]" />
+                  <Star size={13} className="fill-[#facc15]" />
+                  <Star size={13} className="fill-[#facc15]" />
+                  <Star size={13} className="fill-[#facc15]/60" />
+                </div>
+                <span className="font-semibold text-[#e3c88e]">4.2 / 5</span>
+                <span className="text-white/40">·</span>
+                <span className="font-medium text-white/90">500+ Verified Guests</span>
+                <span className="hidden text-white/40 sm:inline">·</span>
+                <span className="inline-flex items-center gap-1.5 text-[11px] font-medium text-emerald-300">
+                  <span className="relative flex h-2 w-2">
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                    <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+                  </span>
+                  24/7 Front Desk
+                </span>
+              </motion.div>
 
               <motion.h1
                 variants={staggerChild}
@@ -514,6 +630,14 @@ const formatDate = (value: string) => {
 
           <span>Scroll to explore</span>
 
+        </div>
+
+        <div className="absolute bottom-6 right-6 z-20 hidden items-center gap-3 rounded-full border border-white/20 bg-black/45 px-4 py-2 text-xs text-white/90 shadow-xl backdrop-blur-md sm:flex">
+          <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#b28b4d] text-[11px] font-bold text-white">
+            ★
+          </span>
+          <span>"Spacious rooms & peaceful central location in Ponda"</span>
+          <span className="text-[11px] text-[#e3c88e]">― Google Review</span>
         </div>
 
       </section>
@@ -1131,6 +1255,187 @@ setTimeout(() => {
         </div>
         </ScrollReveal>
 
+      </section>
+
+
+      {/* ================= EXPLORE & ATTRACTIONS ================= */}
+
+      <section
+        id="explore"
+        className="scroll-mt-24 border-t border-black/8 bg-[#f2ecdf] px-6 py-24 sm:py-32"
+      >
+        <div className="mx-auto max-w-[1280px]">
+          <ScrollReveal>
+            <div className="flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
+              <div>
+                <div className="flex items-center gap-2.5">
+                  <Compass size={17} className="text-[#a27b3e]" />
+                  <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#a27b3e]">
+                    Explore Central Goa
+                  </p>
+                </div>
+                <h2 className="mt-4 font-serif text-5xl font-medium leading-none sm:text-6xl lg:text-7xl">
+                  Nearby Attractions
+                </h2>
+              </div>
+              <p className="max-w-md text-sm leading-6 text-black/60 sm:text-right">
+                Centrally located in Ponda, Shakti Palace puts you minutes away
+                from Goa's grandest temples, lush spice farms, and nature sanctuaries.
+              </p>
+            </div>
+
+            {/* Category Filter Tabs */}
+            <div className="mt-10 flex flex-wrap gap-2.5 sm:mt-12">
+              {attractionCategories.map((cat) => {
+                const count =
+                  cat === "All"
+                    ? attractions.length
+                    : attractions.filter((a) => a.category === cat).length;
+                const isActive = attractionCategory === cat;
+
+                return (
+                  <button
+                    key={cat}
+                    type="button"
+                    onClick={() => setAttractionCategory(cat)}
+                    className={`inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-xs font-semibold transition-all duration-150 ${
+                      isActive
+                        ? "bg-[#b28b4d] text-white shadow-md shadow-[#b28b4d]/25"
+                        : "border border-black/10 bg-white/80 text-[#20221f] hover:bg-white hover:border-[#b28b4d]/40"
+                    }`}
+                  >
+                    <span>{cat}</span>
+                    <span
+                      className={`flex h-5 w-5 items-center justify-center rounded-full text-[10px] font-bold ${
+                        isActive ? "bg-black/20 text-white" : "bg-black/5 text-black/50"
+                      }`}
+                    >
+                      {count}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+          </ScrollReveal>
+
+          {/* Attraction Cards Grid */}
+          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {attractions
+              .filter(
+                (item) =>
+                  attractionCategory === "All" || item.category === attractionCategory
+              )
+              .map((item, index) => (
+                <ScrollReveal key={item.name} delay={index * 0.07}>
+                  <article className="group flex h-full flex-col justify-between rounded-2xl border border-black/8 bg-white p-7 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-[#b28b4d]/40 hover:shadow-xl">
+                    <div>
+                      {/* Top Badges */}
+                      <div className="flex items-center justify-between gap-2">
+                        <span className="rounded-full bg-[#f3ead9] px-3 py-1 text-[11px] font-semibold text-[#a27b3e]">
+                          {item.badge}
+                        </span>
+
+                        <div className="flex items-center gap-1.5 text-xs font-medium text-black/55">
+                          <Car size={13} className="text-[#a27b3e]" />
+                          <span>{item.time}</span>
+                          <span className="text-black/30">·</span>
+                          <span className="text-black/45">{item.distance}</span>
+                        </div>
+                      </div>
+
+                      <h3 className="mt-5 font-serif text-2xl font-semibold text-[#20221f] transition-colors duration-150 group-hover:text-[#a27b3e]">
+                        {item.name}
+                      </h3>
+
+                      <p className="mt-3 text-sm leading-6 text-black/60">
+                        {item.description}
+                      </p>
+
+                      {/* Highlights */}
+                      <div className="mt-5 flex flex-wrap gap-2">
+                        {item.highlights.map((highlight) => (
+                          <span
+                            key={highlight}
+                            className="inline-flex items-center gap-1.5 rounded-lg bg-[#f7f3ea] px-2.5 py-1 text-[11px] font-medium text-black/70"
+                          >
+                            <Sparkles size={11} className="text-[#b28b4d]" />
+                            {highlight}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Action Button */}
+                    <div className="mt-7 border-t border-black/6 pt-5">
+                      <a
+                        href={`https://www.google.com/maps/dir/Hotel+Shakti+Palace,+Super+Market+Complex,+Ponda,+Goa+403401/${encodeURIComponent(
+                          item.mapQuery
+                        )}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 text-xs font-semibold text-[#b28b4d] transition-colors hover:text-[#20221f]"
+                      >
+                        <Navigation size={13} />
+                        Get directions from hotel
+                        <ArrowUpRight size={14} />
+                      </a>
+                    </div>
+                  </article>
+                </ScrollReveal>
+              ))}
+          </div>
+
+          {/* Travel Hubs Transit Strip */}
+          <ScrollReveal delay={0.2}>
+            <div className="mt-14 rounded-3xl border border-black/8 bg-white/70 p-6 shadow-sm backdrop-blur-md sm:p-8">
+              <div className="flex flex-col justify-between gap-4 border-b border-black/8 pb-5 sm:flex-row sm:items-center">
+                <div className="flex items-center gap-3">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#f3ead9] text-[#a27b3e]">
+                    <Navigation size={18} />
+                  </div>
+                  <div>
+                    <h4 className="font-serif text-lg font-semibold text-[#20221f]">
+                      Goa Transit & Travel Times
+                    </h4>
+                    <p className="text-xs text-black/55">
+                      Approximate driving distance and time from Hotel Shakti Palace
+                    </p>
+                  </div>
+                </div>
+
+                <a
+                  href="https://www.google.com/maps/dir/?api=1&destination=Hotel+Shakti+Palace,+Super+Market+Complex,+Ponda,+Goa+403401"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="self-start text-xs font-semibold text-[#a27b3e] hover:underline sm:self-auto inline-flex items-center gap-1.5"
+                >
+                  Open in Google Maps
+                  <ArrowUpRight size={14} />
+                </a>
+              </div>
+
+              <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
+                {travelHubs.map((hub) => (
+                  <div
+                    key={hub.title}
+                    className="rounded-2xl border border-black/6 bg-white p-4 shadow-sm"
+                  >
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-[#a27b3e]">
+                      {hub.tag}
+                    </span>
+                    <p className="mt-1 text-xs font-semibold text-[#20221f]">
+                      {hub.title}
+                    </p>
+                    <div className="mt-2 flex items-center justify-between text-xs">
+                      <span className="font-bold text-[#b28b4d]">{hub.time}</span>
+                      <span className="text-black/40">{hub.distance}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </ScrollReveal>
+        </div>
       </section>
 
 
