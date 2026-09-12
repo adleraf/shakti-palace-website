@@ -61,50 +61,31 @@ img {
    MOBILE FIX — DO NOT AFFECT DESKTOP
 ===================================================== */
 
+@media (max-width: 1023px) {
+
+  /* ── BOOKING CALENDAR ── */
+
+  /* Ensure the date grid columns can contain the calendar popup */
+  #booking .grid.grid-cols-2 > div {
+    position: relative;
+  }
+
+  /* Prevent calendar from overflowing the viewport */
+  #booking .grid.grid-cols-2 > div:last-child > div[class*="absolute"] {
+    right: 0;
+    left: auto;
+  }
+
+  /* Make tap targets friendlier on touch screens */
+  #booking button {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+}
+
 @media (max-width: 767px) {
 
-  /* HERO */
-  section.relative.aspect-\[1899\/882\] {
-    aspect-ratio: auto !important;
-    height: 560px !important;
-  }
-
-  /* Keep the original hotel photo */
-  section.relative.aspect-\[1899\/882\] > img {
-    object-fit: cover !important;
-    object-position: center center !important;
-  }
-
-  /* Move hero content DOWN so the logo doesn't cover it */
-  section.relative.aspect-\[1899\/882\] > div.z-10 > div {
-    align-items: flex-start !important;
-    padding-top: 175px !important;
-  }
-
-  /* Smaller mobile heading */
-  section.relative.aspect-\[1899\/882\] h1 {
-    font-size: 42px !important;
-    line-height: 0.95 !important;
-    max-width: 330px !important;
-  }
-
-  /* Hero description */
-  section.relative.aspect-\[1899\/882\] h1 + p {
-    margin-top: 18px !important;
-    max-width: 330px !important;
-    font-size: 14px !important;
-    line-height: 1.5 !important;
-  }
-
-  /* Hero buttons */
-  section.relative.aspect-\[1899\/882\] h1 + p + div {
-    margin-top: 18px !important;
-  }
-
-
-  /* =================================================
-     BOOKING DATE TEXT
-  ================================================= */
+  /* ── BOOKING DATE TEXT ── */
 
   #booking input[type="date"] {
     color: #20221f !important;
@@ -125,7 +106,6 @@ img {
   #booking label {
     min-height: 125px;
   }
-
 }
 
 
@@ -135,16 +115,9 @@ img {
 
 @media (max-width: 390px) {
 
-  section.relative.aspect-\[1899\/882\] {
-    height: 550px !important;
-  }
-
-  section.relative.aspect-\[1899\/882\] > div.z-10 > div {
-    padding-top: 170px !important;
-  }
-
-  section.relative.aspect-\[1899\/882\] h1 {
-    font-size: 39px !important;
+  /* Slightly tighter hero on tiny screens */
+  section.relative.min-h-\[560px\] {
+    min-height: 500px !important;
   }
 
 }

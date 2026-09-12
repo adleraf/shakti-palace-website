@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
 import {
   ArrowUpRight,
   CalendarDays,
@@ -8,6 +10,10 @@ import {
   MapPin,
   Phone,
   UserRound,
+  BedDouble,
+  UtensilsCrossed,
+  MapPinned,
+  Clock,
 } from "lucide-react";
 
 import logo from "./assets/shakti-palace-logo.png";
@@ -17,6 +23,43 @@ import room1 from "./assets/room-1.webp";
 import room2 from "./assets/room-2.webp";
 import room3 from "./assets/room-3.webp";
 import room4 from "./assets/room-4.webp";
+
+import type { Variants } from "framer-motion";
+
+/* ── Animation variants ── */
+
+const staggerContainer: Variants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.15, delayChildren: 0.2 } },
+};
+
+const staggerChild: Variants = {
+  hidden: { opacity: 0, y: 24 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] },
+  },
+};
+
+/* ── Scroll-reveal wrapper ── */
+
+function ScrollReveal({ children, className = "", delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-60px" });
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 40 }}
+      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+      transition={{ duration: 0.65, delay, ease: [0.22, 1, 0.36, 1] }}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  );
+}
 
 function App() {
 
@@ -127,13 +170,18 @@ const formatDate = (value: string) => {
     const selectedValue = field === "checkIn" ? checkIn : checkOut;
     const minValue = field === "checkIn" ? today : checkIn;
 
+    // On mobile, checkout calendar should align right so it doesn't overflow
+    const positionClass = field === "checkOut"
+      ? "absolute right-0 top-[calc(100%+8px)] z-[200] w-[260px] max-w-[calc(100vw-32px)] lg:left-0 lg:right-auto"
+      : "absolute left-0 top-[calc(100%+8px)] z-[200] w-[260px] max-w-[calc(100vw-32px)]";
+
     return (
-      <div className="absolute left-0 top-[calc(100%+8px)] z-[200] w-[260px] max-w-[calc(100vw-32px)] rounded-2xl border border-black/10 bg-white p-4 shadow-[0_20px_50px_rgba(0,0,0,0.18)]">
+      <div className={`${positionClass} rounded-2xl border border-black/10 bg-white p-4 shadow-[0_20px_50px_rgba(0,0,0,0.18)]`}>
         <div className="flex items-center justify-between">
           <button
             type="button"
             onClick={() => moveCalendarMonth(-1)}
-            className="flex h-8 w-8 items-center justify-center rounded-full border border-black/10 text-lg text-[#20221f] transition hover:bg-black/5"
+            className="flex h-8 w-8 items-center justify-center rounded-full border border-black/10 text-lg text-[#20221f] transition-colors duration-150 hover:bg-black/5"
             aria-label="Previous month"
           >
             ‹
@@ -146,7 +194,7 @@ const formatDate = (value: string) => {
           <button
             type="button"
             onClick={() => moveCalendarMonth(1)}
-            className="flex h-8 w-8 items-center justify-center rounded-full border border-black/10 text-lg text-[#20221f] transition hover:bg-black/5"
+            className="flex h-8 w-8 items-center justify-center rounded-full border border-black/10 text-lg text-[#20221f] transition-colors duration-150 hover:bg-black/5"
             aria-label="Next month"
           >
             ›
@@ -177,7 +225,7 @@ const formatDate = (value: string) => {
                 type="button"
                 disabled={isDisabled}
                 onClick={() => selectCalendarDate(field, day)}
-                className={`h-8 rounded-lg text-xs font-medium transition ${
+                className={`h-8 rounded-lg text-xs font-medium transition-colors duration-100 ${
                   isSelected
                     ? "bg-[#b28b4d] text-white"
                     : isDisabled
@@ -224,8 +272,6 @@ const formatDate = (value: string) => {
   return (
     <>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&display=swap');
-
         .shakti-brand {
           font-family: 'Cormorant Garamond', Georgia, serif;
           color: #e3c88e;
@@ -242,7 +288,7 @@ const formatDate = (value: string) => {
           <div className="flex min-w-0 items-center gap-2 sm:gap-3">
             <a
               href="#"
-              className="shrink-0 rounded-xl bg-white/95 px-3 py-2 shadow-lg backdrop-blur-md transition-transform duration-300 hover:scale-[1.02]"
+              className="shrink-0 rounded-xl bg-white/95 px-3 py-2 shadow-lg backdrop-blur-md transition-transform duration-150 hover:scale-[1.02]"
             >
               <img
                 src={logo}
@@ -267,42 +313,42 @@ const formatDate = (value: string) => {
 
   <a
     href="#rooms"
-    className="rounded-full px-4 py-2 text-sm font-semibold !text-[#b28b4d] transition-all duration-300 hover:bg-white/10 hover:!text-white"
+    className="rounded-full px-4 py-2 text-sm font-semibold !text-[#b28b4d] transition-all duration-150 hover:bg-white/10 hover:!text-white"
   >
     Rooms
   </a>
 
   <a
     href="#dining"
-    className="rounded-full px-4 py-2 text-sm font-semibold !text-[#b28b4d] transition-all duration-300 hover:bg-white/10 hover:!text-white"
+    className="rounded-full px-4 py-2 text-sm font-semibold !text-[#b28b4d] transition-all duration-150 hover:bg-white/10 hover:!text-white"
   >
     Dining
   </a>
 
   <a
     href="#gallery"
-    className="rounded-full px-4 py-2 text-sm font-semibold !text-[#b28b4d] transition-all duration-300 hover:bg-white/10 hover:!text-white"
+    className="rounded-full px-4 py-2 text-sm font-semibold !text-[#b28b4d] transition-all duration-150 hover:bg-white/10 hover:!text-white"
   >
     Gallery
   </a>
 
   <a
     href="#about"
-    className="rounded-full px-4 py-2 text-sm font-semibold !text-[#b28b4d] transition-all duration-300 hover:bg-white/10 hover:!text-white"
+    className="rounded-full px-4 py-2 text-sm font-semibold !text-[#b28b4d] transition-all duration-150 hover:bg-white/10 hover:!text-white"
   >
     About
   </a>
 
   <a
     href="#location"
-    className="rounded-full px-4 py-2 text-sm font-semibold !text-[#b28b4d] transition-all duration-300 hover:bg-white/10 hover:!text-white"
+    className="rounded-full px-4 py-2 text-sm font-semibold !text-[#b28b4d] transition-all duration-150 hover:bg-white/10 hover:!text-white"
   >
     Location
   </a>
 
   <a
     href="#booking"
-    className="ml-1 flex items-center gap-2 rounded-full bg-[#b28b4d] px-6 py-3 text-sm font-semibold text-white shadow-md transition-all duration-300 hover:bg-[#9e793f] hover:shadow-lg"
+    className="ml-1 flex items-center gap-2 rounded-full bg-[#b28b4d] px-6 py-3 text-sm font-semibold text-white shadow-md transition-all duration-150 hover:bg-[#9e793f] hover:shadow-lg"
   >
     Book now
     <ArrowUpRight size={16} />
@@ -406,54 +452,55 @@ const formatDate = (value: string) => {
 
           <div className="mx-auto flex h-full max-w-[1400px] items-center px-5 pt-28 sm:px-6 sm:pt-32 lg:px-10 lg:pt-20">
 
-            <div className="max-w-2xl">
+            <motion.div
+              className="max-w-2xl"
+              variants={staggerContainer}
+              initial="hidden"
+              animate="visible"
+            >
 
-              <div className="mb-5 flex items-center gap-4 sm:mb-7">
-
-             
-              </div>
-
-              <h1 className="max-w-[350px] font-serif text-[clamp(40px,10vw,100px)] font-medium leading-[0.92] tracking-[-0.025em] text-white drop-shadow-[0_3px_12px_rgba(0,0,0,0.45)] sm:max-w-xl lg:max-w-2xl">
-
+              <motion.h1
+                variants={staggerChild}
+                className="max-w-[350px] font-serif text-[clamp(40px,10vw,100px)] font-medium leading-[0.92] tracking-[-0.025em] text-white drop-shadow-[0_3px_12px_rgba(0,0,0,0.45)] sm:max-w-xl lg:max-w-2xl"
+              >
                 A place to stay,
-
                 <br />
-
                 <span className="italic text-[#e3c88e]">
                   dine & unwind.
                 </span>
+              </motion.h1>
 
-              </h1>
-
-              <p className="mt-5 max-w-[340px] text-sm leading-6 text-white/85 drop-shadow-[0_2px_5px_rgba(0,0,0,0.8)] sm:mt-7 sm:max-w-lg sm:text-base sm:leading-7 lg:text-lg">
+              <motion.p
+                variants={staggerChild}
+                className="mt-5 max-w-[340px] text-sm leading-6 text-white/85 drop-shadow-[0_2px_5px_rgba(0,0,0,0.8)] sm:mt-7 sm:max-w-lg sm:text-base sm:leading-7 lg:text-lg"
+              >
                 Comfortable stays, welcoming hospitality and
                 memorable dining in the heart of Ponda, Goa.
-              </p>
+              </motion.p>
 
-              <div className="mt-6 flex flex-wrap gap-3 sm:mt-8 sm:gap-4">
+              <motion.div variants={staggerChild} className="mt-6 flex flex-wrap gap-3 sm:mt-8 sm:gap-4">
 
                 <a
                   href="#rooms"
-                  className="group flex items-center gap-3 rounded-full bg-[#b28b4d] px-6 py-3.5 text-sm font-semibold text-white shadow-xl transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#9e793f] hover:shadow-2xl sm:px-7 sm:py-4"
+                  className="group flex items-center gap-3 rounded-full bg-[#b28b4d] px-6 py-3.5 text-sm font-semibold text-white shadow-xl transition-all duration-150 hover:-translate-y-0.5 hover:bg-[#9e793f] hover:shadow-2xl sm:px-7 sm:py-4"
                 >
                   Explore rooms
-
                   <ArrowUpRight
                     size={17}
-                    className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
+                    className="transition-transform duration-150 group-hover:translate-x-1 group-hover:-translate-y-1"
                   />
                 </a>
-<a
-  href="#about"
-  className="group flex items-center gap-3 rounded-full border border-[#e3c88e]/80 bg-black/20 px-6 py-3.5 text-sm font-medium shadow-lg backdrop-blur-sm transition-all duration-300 hover:bg-white sm:px-7 sm:py-4"
->
-  <span className="text-[#e3c88e] transition-colors duration-300 group-hover:text-[#20221f]">
-    Discover Shakti Palace
-  </span>
-</a>
-              </div>
+                <a
+                  href="#about"
+                  className="group flex items-center gap-3 rounded-full border border-[#e3c88e]/80 bg-black/20 px-6 py-3.5 text-sm font-medium shadow-lg backdrop-blur-sm transition-all duration-150 hover:bg-white sm:px-7 sm:py-4"
+                >
+                  <span className="text-[#e3c88e] transition-colors duration-150 group-hover:text-[#20221f]">
+                    Discover Shakti Palace
+                  </span>
+                </a>
+              </motion.div>
 
-            </div>
+            </motion.div>
 
           </div>
 
@@ -476,7 +523,7 @@ const formatDate = (value: string) => {
       <section id="booking" className="relative z-30">
         <div className="mx-auto -mt-14 w-full max-w-[1480px] lg:-mt-[58px]">
           {/* Mobile / tablet booking card */}
-          <div className="mx-auto w-[calc(100%-32px)] max-w-[380px] overflow-visible rounded-[24px] bg-white shadow-[0_20px_60px_rgba(0,0,0,0.15)] lg:hidden">
+          <div className="mx-auto w-[calc(100%-32px)] max-w-[380px] overflow-visible rounded-[24px] bg-white shadow-[0_20px_60px_rgba(0,0,0,0.15)] lg:hidden" style={{ position: 'relative' }}>
             {/* Check Availability */}
             <div className="flex items-center gap-4 px-5 py-4 sm:px-6 sm:py-5">
               <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#f5ecdc]">
@@ -965,6 +1012,7 @@ setTimeout(() => {
         className="mx-auto max-w-[1280px] scroll-mt-24 px-6 py-28 lg:px-10 lg:py-36"
       >
 
+        <ScrollReveal>
         <div className="grid gap-14 lg:grid-cols-[0.75fr_1.25fr] lg:items-center">
 
           <div>
@@ -1034,20 +1082,20 @@ setTimeout(() => {
                 href="https://www.google.com/maps/dir/?api=1&destination=Hotel+Shakti+Palace,+Super+Market+Complex,+Ponda,+Goa+403401"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group inline-flex items-center gap-3 rounded-full bg-[#b28b4d] px-7 py-4 text-sm font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#9e793f] hover:shadow-xl"
+                className="group inline-flex items-center gap-3 rounded-full bg-[#b28b4d] px-7 py-4 text-sm font-semibold text-white shadow-lg transition-all duration-150 hover:-translate-y-0.5 hover:bg-[#9e793f] hover:shadow-xl"
               >
                 Get directions
 
                 <ArrowUpRight
                   size={17}
-                  className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
+                  className="transition-transform duration-150 group-hover:translate-x-1 group-hover:-translate-y-1"
                 />
 
               </a>
 
               <a
                 href="tel:+917875968565"
-                className="inline-flex items-center gap-3 rounded-full border border-black/15 bg-white px-6 py-4 text-sm font-semibold text-[#20221f] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#b28b4d] hover:shadow-lg"
+                className="inline-flex items-center gap-3 rounded-full border border-black/15 bg-white px-6 py-4 text-sm font-semibold text-[#20221f] transition-all duration-150 hover:-translate-y-0.5 hover:border-[#b28b4d] hover:shadow-lg"
               >
 
                 <Phone size={16} />
@@ -1081,6 +1129,7 @@ setTimeout(() => {
           </div>
 
         </div>
+        </ScrollReveal>
 
       </section>
 
@@ -1092,34 +1141,70 @@ setTimeout(() => {
         className="mx-auto max-w-[1280px] scroll-mt-24 px-6 py-32 lg:px-10 lg:py-44"
       >
 
-        <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#a27b3e]">
-          Welcome to Shakti Palace
-        </p>
+        <ScrollReveal>
+          <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#a27b3e]">
+            Welcome to Shakti Palace
+          </p>
 
-        <div className="mt-7 grid gap-10 lg:grid-cols-2 lg:gap-20">
+          <div className="mt-7 grid gap-10 lg:grid-cols-2 lg:gap-20">
 
-          <h2 className="font-serif text-5xl font-medium leading-[0.95] sm:text-6xl lg:text-7xl">
+            <h2 className="font-serif text-5xl font-medium leading-[0.95] sm:text-6xl lg:text-7xl">
+              Your stay begins
+              <br />
+              <span className="italic text-[#a27b3e]">
+                here.
+              </span>
+            </h2>
 
-            Your stay begins
-
-            <br />
-
-            <span className="italic text-[#a27b3e]">
-              here.
-            </span>
-
-          </h2>
-
-          <div className="flex items-end">
-
-            <p className="max-w-xl text-base leading-8 text-black/60 sm:text-lg">
-              Discover a comfortable place to stay, enjoy
-              good food and experience the warmth of Goa
-              from Ponda.
-            </p>
+            <div className="flex items-end">
+              <p className="max-w-xl text-base leading-8 text-black/60 sm:text-lg">
+                Discover a comfortable place to stay, enjoy
+                good food and experience the warmth of Goa
+                from Ponda.
+              </p>
+            </div>
 
           </div>
+        </ScrollReveal>
 
+        {/* ── Highlights ── */}
+        <div className="mt-16 grid gap-5 sm:grid-cols-2 lg:mt-24 lg:grid-cols-4">
+          {[
+            {
+              icon: <BedDouble size={24} />,
+              title: "Comfortable Rooms",
+              text: "Well-furnished rooms designed for a relaxing and restful stay in Ponda.",
+            },
+            {
+              icon: <UtensilsCrossed size={24} />,
+              title: "Restaurant",
+              text: "Savour authentic Goan and multi-cuisine dishes prepared with fresh ingredients.",
+            },
+            {
+              icon: <MapPinned size={24} />,
+              title: "Central Location",
+              text: "Steps away from Ponda's markets, temples and key landmarks.",
+            },
+            {
+              icon: <Clock size={24} />,
+              title: "24/7 Service",
+              text: "Round-the-clock front desk, room service and assistance for every guest.",
+            },
+          ].map((item, index) => (
+            <ScrollReveal key={item.title} delay={index * 0.1}>
+              <div className="group rounded-2xl border border-black/8 bg-white p-7 shadow-sm transition-shadow duration-200 hover:shadow-lg">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#f3ead9] text-[#a27b3e] transition-colors duration-200 group-hover:bg-[#b28b4d] group-hover:text-white">
+                  {item.icon}
+                </div>
+                <h3 className="mt-5 font-serif text-xl font-semibold text-[#20221f]">
+                  {item.title}
+                </h3>
+                <p className="mt-3 text-sm leading-6 text-black/50">
+                  {item.text}
+                </p>
+              </div>
+            </ScrollReveal>
+          ))}
         </div>
 
       </section>
@@ -1134,82 +1219,58 @@ setTimeout(() => {
 
         <div className="mx-auto max-w-[1280px]">
 
-          <div className="mb-12 flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
-
-            <div>
-
-              <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#e3c88e]">
-                Stay with us
+          <ScrollReveal>
+            <div className="mb-12 flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
+              <div>
+                <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#e3c88e]">
+                  Stay with us
+                </p>
+                <h2 className="mt-4 font-serif text-5xl font-medium leading-none sm:text-6xl lg:text-7xl">
+                  Rooms & stays
+                </h2>
+              </div>
+              <p className="max-w-md text-sm leading-6 text-white/55 sm:text-right">
+                Comfortable spaces designed to make your
+                stay in Ponda relaxing and memorable.
               </p>
-
-              <h2 className="mt-4 font-serif text-5xl font-medium leading-none sm:text-6xl lg:text-7xl">
-                Rooms & stays
-              </h2>
-
             </div>
-
-            <p className="max-w-md text-sm leading-6 text-white/55 sm:text-right">
-              Comfortable spaces designed to make your
-              stay in Ponda relaxing and memorable.
-            </p>
-
-          </div>
-
+          </ScrollReveal>
 
           {/* ROOM CARDS */}
-
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {rooms.map((room, index) => (
+              <ScrollReveal key={room.name} delay={index * 0.08}>
+                <article className="group flex h-full flex-col overflow-hidden rounded-2xl bg-white/5 shadow-xl transition-all duration-200 hover:-translate-y-1 hover:shadow-2xl">
+                  {/* IMAGE */}
+                  <div className="relative aspect-[4/3] overflow-hidden">
+                    <img
+                      src={room.image}
+                      alt={room.name}
+                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-70" />
+                  </div>
 
-            {rooms.map((room) => (
-
-              <article
-                key={room.name}
-                className="group overflow-hidden rounded-2xl bg-white/5 shadow-xl"
-              >
-
-                {/* IMAGE */}
-
-                <div className="relative aspect-[4/3] overflow-hidden">
-
-                  <img
-                    src={room.image}
-                    alt={room.name}
-                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-70" />
-
-                </div>
-
-
-                {/* CONTENT */}
-
-                <div className="p-6">
-
-                  <h3 className="font-serif text-2xl">
-                    {room.name}
-                  </h3>
-
-                  <p className="mt-3 text-sm leading-6 text-white/55">
-                    {room.description}
-                  </p>
-
-                  <a
-                    href="#booking"
-                    className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-[#e3c88e] transition-colors hover:text-white"
-                  >
-                    Check availability
-
-                    <ArrowUpRight size={16} />
-
-                  </a>
-
-                </div>
-
-              </article>
-
+                  {/* CONTENT */}
+                  <div className="flex flex-1 flex-col p-6">
+                    <h3 className="font-serif text-2xl">
+                      {room.name}
+                    </h3>
+                    <p className="mt-3 flex-1 text-sm leading-6 text-white/55">
+                      {room.description}
+                    </p>
+                    <a
+                      href="#booking"
+                      className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-[#e3c88e] transition-colors hover:text-white"
+                    >
+                      Check availability
+                      <ArrowUpRight size={16} />
+                    </a>
+                  </div>
+                </article>
+              </ScrollReveal>
             ))}
-
           </div>
 
         </div>
